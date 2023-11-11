@@ -22,9 +22,11 @@ public class Day {
     }
 
     private final LocalDate date;
+    private final boolean star;
 
-    private Day(int dayOfMonth) {
+    private Day(int dayOfMonth, boolean star) {
         this.date = LocalDate.of(YEAR, MONTH, dayOfMonth);
+        this.star = star;
     }
 
     public static Day of(int dayOfMonth) {
@@ -34,6 +36,10 @@ public class Day {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public boolean getStar() {
+        return star;
     }
 
     public boolean isWeekend() {
