@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import christmas.domain.dto.OrderDto;
 import christmas.exception.ErrorMessage;
@@ -14,7 +15,8 @@ class OrdersTest {
     @Test
     void validateMenuCountErrorTest() {
         //given
-        List<OrderDto> orders = List.of(OrderDto.of(Name.from("티본스테이크"), Count.from(10)),
+        List<OrderDto> orders = List.of(
+                OrderDto.of(Name.from("티본스테이크"), Count.from(10)),
                 OrderDto.of(Name.from("아이스크림"), Count.from(12)));
 
         //when & then
@@ -27,7 +29,8 @@ class OrdersTest {
     @Test
     void validateDuplicateMenuErrorTest() {
         //given
-        List<OrderDto> orders = List.of(OrderDto.of(Name.from("티본스테이크"), Count.from(10)),
+        List<OrderDto> orders = List.of(
+                OrderDto.of(Name.from("티본스테이크"), Count.from(10)),
                 OrderDto.of(Name.from("티본스테이크"), Count.from(1)));
 
         //when & then
@@ -40,8 +43,10 @@ class OrdersTest {
     @Test
     void validateOnlyDrinkErrorTest() {
         //given
-        List<OrderDto> orders = List.of(OrderDto.of(Name.from("제로콜라"), Count.from(10)),
-                OrderDto.of(Name.from("레드와인"), Count.from(1)), OrderDto.of(Name.from("샴페인"), Count.from(8)));
+        List<OrderDto> orders = List.of(
+                OrderDto.of(Name.from("제로콜라"), Count.from(10)),
+                OrderDto.of(Name.from("레드와인"), Count.from(1)),
+                OrderDto.of(Name.from("샴페인"), Count.from(8)));
 
         //when & then
         assertThatThrownBy(() -> Orders.of(orders))
@@ -53,10 +58,28 @@ class OrdersTest {
     @Test
     void successOrdersTest() {
         //given
-        List<OrderDto> orders = List.of(OrderDto.of(Name.from("티본스테이크"), Count.from(10)),
+        List<OrderDto> orders = List.of(
+                OrderDto.of(Name.from("티본스테이크"), Count.from(10)),
                 OrderDto.of(Name.from("아이스크림"), Count.from(10)));
 
         //when & then
         Assertions.assertDoesNotThrow(() -> Orders.of(orders));
+    }
+
+    @DisplayName("할인 전 총 주문 금액을 구한다.")
+    @Test
+    void calculatePriceBeforeSaleTest() {
+        //given
+        Orders orders = Orders.of(List.of(
+                OrderDto.of(Name.from("티본스테이크"), Count.from(2)),
+                OrderDto.of(Name.from("아이스크림"), Count.from(2)),
+                OrderDto.of(Name.from("샴페인"), Count.from(1))
+        ));
+        //when
+        int result = orders.calculatePriceBeforeSale();
+        int expectedResult = 110000 + 10000 + 25000;
+
+        //when & then
+        assertThat(result).isEqualTo(expectedResult);
     }
 }
