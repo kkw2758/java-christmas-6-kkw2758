@@ -21,6 +21,24 @@ public class InputView {
         return Integer.parseInt(userInput);
     }
 
+    public static Orders inputOrders() {
+        return Orders.of(Arrays.stream(split(readLine(), ","))
+                .map((member) -> split(member, "-"))
+                .map(InputView::parseOrder)
+                .toList());
+    }
+
+    private static Order parseOrder(String[] orderInput) {
+        validateOrderInput(orderInput);
+        String name = orderInput[0].trim();
+        int count = Integer.parseInt(orderInput[1].trim());
+        return Order.of(Name.from(name), Count.from(count));
+    }
+
+    private static String[] split(String userInput, String delimiter) {
+        return userInput.split(delimiter);
+    }
+
     private static void validateOrderInput(String[] orderInput) {
         validateOrderInputLength(orderInput);
         validateOrderInputFormat(orderInput);
