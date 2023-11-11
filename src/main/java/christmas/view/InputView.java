@@ -1,8 +1,6 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.domain.Count;
-import christmas.domain.Name;
 import christmas.domain.dto.Order;
 import christmas.domain.Orders;
 import java.util.Arrays;
@@ -32,7 +30,7 @@ public class InputView {
         validateOrderInput(orderInput);
         String name = orderInput[0].trim();
         int count = Integer.parseInt(orderInput[1].trim());
-        return Order.of(Name.from(name), Count.from(count));
+        return Order.of(name, count);
     }
 
     private static String[] split(String userInput, String delimiter) {
