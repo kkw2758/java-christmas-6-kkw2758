@@ -23,11 +23,11 @@ public class Day {
 
     private final LocalDate date;
 
-    private Day(int dayOfMonth, boolean star) {
+    private Day(int dayOfMonth) {
         this.date = LocalDate.of(YEAR, MONTH, dayOfMonth);
     }
 
-    public static Day of(int dayOfMonth, boolean star) {
+    public static Day of(int dayOfMonth) {
         validateDayOfMonth(dayOfMonth);
         return dayCache.get(dayOfMonth);
     }
