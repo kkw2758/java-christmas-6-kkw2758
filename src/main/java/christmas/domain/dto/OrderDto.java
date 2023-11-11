@@ -1,18 +1,18 @@
 package christmas.domain.dto;
 
 
-public class Order {
+public class OrderDto {
 
     private final int count;
     private final String name;
 
-    private Order(String name, int count) {
+    private OrderDto(String name, int count) {
         this.name = name;
         this.count = count;
     }
 
-    public static Order of(String name, int count) {
-        return new Order(name, count);
+    public static OrderDto of(String name, int count) {
+        return new OrderDto(name, count);
     }
 
     public int getCount() {
