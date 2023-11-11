@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import christmas.exception.ErrorMessage;
+
 public class Name {
 
     private final String name;
@@ -18,7 +20,7 @@ public class Name {
     }
     private void validateNameInMenu(String name) {
         if (!Menu.has(name)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
         }
     }
 }

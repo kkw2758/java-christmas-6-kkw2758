@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.exception.ErrorMessage;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -49,6 +50,6 @@ public enum Menu {
         return Arrays.stream(Menu.values())
                 .filter((menu) -> menu.getName().equals(name))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("입력하신 메뉴는 메뉴판에 없습니다."));
+                .orElseThrow(() -> new NoSuchElementException(ErrorMessage.NAME_NOT_IN_MENU_ERROR.getMessage()));
     }
 }

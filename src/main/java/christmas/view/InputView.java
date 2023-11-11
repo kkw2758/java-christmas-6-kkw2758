@@ -3,6 +3,7 @@ package christmas.view;
 import camp.nextstep.edu.missionutils.Console;
 import christmas.domain.dto.OrderDto;
 import christmas.domain.Orders;
+import christmas.exception.ErrorMessage;
 import java.util.Arrays;
 
 public class InputView {
@@ -44,13 +45,13 @@ public class InputView {
 
     private static void validateOrderInputFormat(String[] orderInput) {
         if (isNotNaturalNumber(orderInput[1])) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
         }
     }
 
     private static void validateOrderInputLength(String[] orderInput) {
         if (!checkOrderInputLength(orderInput)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
         }
     }
 
@@ -60,7 +61,7 @@ public class InputView {
 
     private static void validateNaturalNumber(String userInput) {
         if (isNotNaturalNumber(userInput)) {
-            throw new IllegalArgumentException("자연수 형식으로 입력해주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_NATURAL_NUMBER_FORMAT_ERROR.getMessage());
         }
     }
 
@@ -70,7 +71,7 @@ public class InputView {
 
     private static void validateBlankInput(final String input) {
         if (input.isBlank()) {
-            throw new IllegalArgumentException("공백이 입력되었습니다.");
+            throw new IllegalArgumentException(ErrorMessage.BLANK_INPUT_ERROR.getMessage());
         }
     }
 }

@@ -2,6 +2,7 @@ package christmas.domain;
 
 
 import christmas.domain.dto.OrderDto;
+import christmas.exception.ErrorMessage;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class Orders {
 
     private void validateOnlyDrink(List<OrderDto> orders) {
         if (checkOnlyDrink(orders)) {
-            throw new IllegalArgumentException("음료만 주문시, 주문할 수 없습니다.");
+            throw new IllegalArgumentException(ErrorMessage.ONLY_DRINK_ORDER_ERROR.getMessage());
         }
     }
 
@@ -49,13 +50,14 @@ public class Orders {
 
     private void validateDuplicateMenu(List<OrderDto> orders) {
         if (hasDuplicatedMenu(orders)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
         }
     }
 
     private void validateMenuCount(List<OrderDto> orders) {
         if (!checkMenuCount(orders)) {
-            throw new IllegalArgumentException("[ERROR] 메뉴는 한번에 최대 20개까지만 주문할 수 있습니다.");
+            throw new IllegalArgumentException(
+                    String.format(ErrorMessage.MAX_MENU_COUNT_ERROR.getMessage(), MAX_MENU_COUNT));
         }
     }
 
