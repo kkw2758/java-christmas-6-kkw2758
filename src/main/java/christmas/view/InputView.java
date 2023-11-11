@@ -1,6 +1,11 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.domain.Count;
+import christmas.domain.Name;
+import christmas.domain.dto.Order;
+import christmas.domain.Orders;
+import java.util.Arrays;
 
 public class InputView {
     private static final String NATURAL_NUMBER_REGULAR_EXPRESSION = "\\d+";
@@ -14,6 +19,27 @@ public class InputView {
         String userInput = readLine();
         validateNaturalNumber(userInput);
         return Integer.parseInt(userInput);
+    }
+
+    private static void validateOrderInput(String[] orderInput) {
+        validateOrderInputLength(orderInput);
+        validateOrderInputFormat(orderInput);
+    }
+
+    private static void validateOrderInputFormat(String[] orderInput) {
+        if (isNotNaturalNumber(orderInput[1])) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private static void validateOrderInputLength(String[] orderInput) {
+        if (!checkOrderInputLength(orderInput)) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private static boolean checkOrderInputLength(String[] orderInput) {
+        return orderInput.length == 2;
     }
 
     private static void validateNaturalNumber(String userInput) {
