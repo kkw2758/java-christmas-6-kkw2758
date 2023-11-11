@@ -2,6 +2,7 @@ package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import christmas.domain.Count;
+import christmas.domain.Day;
 import christmas.domain.Name;
 import christmas.domain.dto.OrderDto;
 import christmas.domain.Orders;
@@ -20,6 +21,10 @@ public class InputView {
         String userInput = readLine();
         validateNaturalNumber(userInput);
         return Integer.parseInt(userInput);
+    }
+
+    public static Day inputDay() {
+        return Day.of(inputNaturalNumber());
     }
 
     public static Orders inputOrders() {
