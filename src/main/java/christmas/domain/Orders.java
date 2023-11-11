@@ -27,6 +27,27 @@ public class Orders {
     }
 
     private void validateOrders(List<OrderDto> orders) {
+        validateMenuCount(orders);
+        validateDuplicateMenu(orders);
+        validateOnlyDrink(orders);
+    }
+
+    private void validateOnlyDrink(List<OrderDto> orders) {
+        if (checkOnlyDrink(orders)) {
+            throw new IllegalArgumentException("음료만 주문시, 주문할 수 없습니다.");
+        }
+    }
+
+    private boolean checkOnlyDrink(List<OrderDto> orders) {
+        return orders.stream()
+                .map((order) -> Menu.findMenuByName(order.getName()))
+                .map(Menu::getCategory)
+                .distinct()
+                .toList()
+                .equals(List.of(Category.DESSERT));
+    }
+
+    private void validateDuplicateMenu(List<OrderDto> orders) {
         if (hasDuplicatedMenu(orders)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
