@@ -82,4 +82,22 @@ class OrdersTest {
         //when & then
         assertThat(result).isEqualTo(expectedResult);
     }
+
+    @DisplayName("어떤 카테고리의 음식을 몇개 주문했는지 확인한다.")
+    @Test
+    void calculateCategoryCountTest() {
+        //given
+        Orders orders = Orders.of(List.of(
+                OrderDto.of(Name.from("티본스테이크"), Count.from(3)),
+                OrderDto.of(Name.from("아이스크림"), Count.from(2)),
+                OrderDto.of(Name.from("초코케이크"), Count.from(1))
+        ));
+
+        //when & then
+        assertThat(orders.calculateCategoryCount(Category.APPETIZER)).isEqualTo(0);
+        assertThat(orders.calculateCategoryCount(Category.MAIN)).isEqualTo(1);
+        assertThat(orders.calculateCategoryCount(Category.DESSERT)).isEqualTo(2);
+        assertThat(orders.calculateCategoryCount(Category.DRINK)).isEqualTo(0);
+    }
+
 }
