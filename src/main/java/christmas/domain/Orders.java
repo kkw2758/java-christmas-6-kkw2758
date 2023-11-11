@@ -14,12 +14,25 @@ public class Orders {
 
     private Orders(List<OrderDto> orders) {
         validateOrders(orders);
+        initOrders(orders);
     }
 
     public static Orders of(List<OrderDto> orders) {
         return new Orders(orders);
     }
 
+    private void initOrders(List<OrderDto> orders) {
+        for(OrderDto order : orders) {
+            orderDetails.put(Menu.findMenuByName(order.getName().getValue()), order.getCount().getValue());
+        }
+    }
+
+    public int calculatePriceBeforeSale() {
+        return orderDetails.keySet().stream()
+                .map((menu) -> menu.getPrice() * orderDetails.get(menu))
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
 
     private void validateOrders(List<OrderDto> orders) {
         validateMenuCount(orders);
