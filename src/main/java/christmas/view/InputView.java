@@ -1,6 +1,8 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.domain.Count;
+import christmas.domain.Name;
 import christmas.domain.dto.OrderDto;
 import christmas.domain.Orders;
 import christmas.exception.ErrorMessage;
@@ -29,8 +31,8 @@ public class InputView {
 
     private static OrderDto parseOrder(String[] orderInput) {
         validateOrderInput(orderInput);
-        String name = orderInput[0].trim();
-        int count = Integer.parseInt(orderInput[1].trim());
+        Name name = Name.from(orderInput[0].trim());
+        Count count = Count.from(Integer.parseInt(orderInput[1].trim()));
         return OrderDto.of(name, count);
     }
 

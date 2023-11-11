@@ -4,19 +4,19 @@ import christmas.exception.ErrorMessage;
 
 public class Name {
 
-    private final String name;
+    private final String value;
 
     private Name(String name) {
         validateNameInMenu(name);
-        this.name = name;
+        this.value = name;
     }
 
     public static Name from(String name) {
         return new Name(name);
     }
 
-    public String getName(){
-        return name;
+    public String getValue(){
+        return value;
     }
     private void validateNameInMenu(String name) {
         if (!Menu.has(name)) {

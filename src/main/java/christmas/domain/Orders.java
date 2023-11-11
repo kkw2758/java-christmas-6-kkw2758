@@ -20,12 +20,6 @@ public class Orders {
         return new Orders(orders);
     }
 
-    private boolean hasDuplicatedMenu(List<OrderDto> orders) {
-        return orders.stream().
-                map(OrderDto::getName)
-                .distinct()
-                .count() != orders.size();
-    }
 
     private void validateOrders(List<OrderDto> orders) {
         validateMenuCount(orders);
@@ -41,17 +35,25 @@ public class Orders {
 
     private boolean checkOnlyDrink(List<OrderDto> orders) {
         return orders.stream()
-                .map((order) -> Menu.findMenuByName(order.getName()))
+                .map((order) -> Menu.findMenuByName(order.getName().getValue()))
                 .map(Menu::getCategory)
                 .distinct()
                 .toList()
-                .equals(List.of(Category.DESSERT));
+                .equals(List.of(Category.DRINK));
     }
 
     private void validateDuplicateMenu(List<OrderDto> orders) {
         if (hasDuplicatedMenu(orders)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
         }
+    }
+
+    private boolean hasDuplicatedMenu(List<OrderDto> orders) {
+        return orders.stream().
+                map(OrderDto::getName)
+                .map(Name::getValue)
+                .distinct()
+                .count() != orders.size();
     }
 
     private void validateMenuCount(List<OrderDto> orders) {
@@ -63,7 +65,8 @@ public class Orders {
 
     private boolean checkMenuCount(List<OrderDto> orders) {
         return orders.stream()
-                .mapToInt(OrderDto::getCount)
+                .map(OrderDto::getCount)
+                .mapToInt(Count::getValue)
                 .sum() <= MAX_MENU_COUNT;
     }
 }

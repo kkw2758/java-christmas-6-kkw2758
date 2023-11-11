@@ -1,25 +1,28 @@
 package christmas.domain.dto;
 
 
+import christmas.domain.Count;
+import christmas.domain.Name;
+
 public class OrderDto {
 
-    private final int count;
-    private final String name;
+    private final Count count;
+    private final Name name;
 
-    private OrderDto(String name, int count) {
+    private OrderDto(Name name, Count count) {
         this.name = name;
         this.count = count;
     }
 
-    public static OrderDto of(String name, int count) {
+    public static OrderDto of(Name name, Count count) {
         return new OrderDto(name, count);
     }
 
-    public int getCount() {
+    public Count getCount() {
         return count;
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 }

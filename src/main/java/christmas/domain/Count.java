@@ -5,19 +5,19 @@ import christmas.exception.ErrorMessage;
 public class Count {
     private final int MIN_ORDER_COUNT = 1;
 
-    private final int count;
+    private final int value;
 
     private Count(int count) {
         validateCount(count);
-        this.count = count;
+        this.value = count;
     }
 
     public static Count from(int count) {
         return new Count(count);
     }
 
-    public int getCount() {
-        return count;
+    public int getValue() {
+        return value;
     }
 
     private void validateCount(int count) {
