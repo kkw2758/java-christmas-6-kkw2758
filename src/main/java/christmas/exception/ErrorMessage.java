@@ -6,7 +6,8 @@ public enum ErrorMessage {
     MAX_MENU_COUNT_ERROR("메뉴는 한번에 최대 %d개까지만 주문할 수 있습니다."),
     BLANK_INPUT_ERROR("공백이 입력되었습니다."),
     INVALID_NATURAL_NUMBER_FORMAT_ERROR("자연수 형식으로 입력해주세요."),
-    NAME_NOT_IN_MENU_ERROR("입력하신 메뉴는 메뉴판에 없습니다.");
+    NAME_NOT_IN_MENU_ERROR("입력하신 메뉴는 메뉴판에 없습니다."),
+    INVALID_DAY_OF_MONTH_ERROR("유효하지 않은 날짜입니다. 다시 입력해 주세요.");
 
 
     private final String message;

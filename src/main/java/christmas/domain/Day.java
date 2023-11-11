@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.exception.ErrorMessage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class Day {
     }
 
     public static Day of(int dayOfMonth, boolean star) {
+        validateDayOfMonth(dayOfMonth);
         return dayCache.get(dayOfMonth);
     }
 
@@ -36,6 +38,16 @@ public class Day {
 
     public boolean isWeekend() {
         return weekend.contains(date.getDayOfWeek().getValue());
+    }
+
+    private static void validateDayOfMonth(int dayOfMonth) {
+        if (!isDayOfMonthInRange(dayOfMonth)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DAY_OF_MONTH_ERROR.getMessage());
+        }
+    }
+
+    private static boolean isDayOfMonthInRange(int dayOfMonth) {
+        return dayOfMonth >= MIN_DAY_OF_MONTH && dayOfMonth <= MAX_DAY_OF_MONTH;
     }
 
     private static void initDayCache() {
