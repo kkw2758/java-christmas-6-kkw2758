@@ -34,6 +34,12 @@ public class Orders {
                 .sum();
     }
 
+    public int calculateCategoryCount(Category category) {
+        return (int) orderDetails.keySet().stream()
+                .filter((menu) -> menu.getCategory().equals(category))
+                .count();
+    }
+
     private void validateOrders(List<OrderDto> orders) {
         validateMenuCount(orders);
         validateDuplicateMenu(orders);
