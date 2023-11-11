@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 public enum Menu {
     MUSHROOM_SOUP("양송이수프", 6000, Category.APPETIZER),
@@ -42,5 +43,12 @@ public enum Menu {
         return Arrays.stream(Menu.values())
                 .map(Menu::getName)
                 .anyMatch(menu::equals);
+    }
+
+    public static Menu findMenuByName(String name) {
+        return Arrays.stream(Menu.values())
+                .filter((menu) -> menu.getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("입력하신 메뉴는 메뉴판에 없습니다."));
     }
 }
