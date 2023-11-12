@@ -21,6 +21,12 @@ public class EventApplier {
         return new EventApplier(orders, day);
     }
 
+    public int calculateTotalSalePrice() {
+        return benefitsInfo.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
     private void applyEvent(Orders orders, Day day) {
         applyWeekdaySaleEvent(orders, day);
         applyWeekendSaleEvent(orders, day);
