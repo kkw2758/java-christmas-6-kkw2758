@@ -2,6 +2,7 @@ package christmas.view;
 
 import christmas.domain.Menu;
 import christmas.domain.Orders;
+import java.util.Map;
 
 public class OutputView {
     private static final String NEWLINE = "\n";
@@ -11,6 +12,7 @@ public class OutputView {
     private static final String START_PREVIEW_MESSAGE = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
     private static final String ORDERS_FORMAT = "%s %d개";
     private static final String ORDERS_TAG = "<주문 메뉴>";
+    private static final String GIFT_MENU_TAG = "<증정 메뉴>";
     private static final String TOTAL_PRICE_BEFORE_SALE_TAG = "<할인 전 총주문 금액>";
     private static final String TOTAL_PRICE_BEFORE_SALE = "%,d원";
 
@@ -49,5 +51,16 @@ public class OutputView {
     public static void printTotalPriceBeforeSale(Orders orders) {
         println(TOTAL_PRICE_BEFORE_SALE_TAG);
         printfWithNewLine(TOTAL_PRICE_BEFORE_SALE, orders.calculatePriceBeforeSale());
+    }
+
+    public static void printGiftMenu(Map<Menu, Integer> giftMenu) {
+        println(GIFT_MENU_TAG);
+        if (giftMenu.size() == 0) {
+            println("없음");
+            return;
+        }
+        for (Menu menu : giftMenu.keySet()) {
+            printfWithNewLine(ORDERS_FORMAT, menu.getName(), giftMenu.get(menu));
+        }
     }
 }
