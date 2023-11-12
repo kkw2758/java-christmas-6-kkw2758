@@ -75,6 +75,7 @@ class OrdersTest {
                 OrderDto.of(Name.from("아이스크림"), Count.from(2)),
                 OrderDto.of(Name.from("샴페인"), Count.from(1))
         ));
+
         //when
         int result = orders.calculatePriceBeforeSale();
         int expectedResult = 110000 + 10000 + 25000;
@@ -95,8 +96,8 @@ class OrdersTest {
 
         //when & then
         assertThat(orders.calculateCategoryCount(Category.APPETIZER)).isEqualTo(0);
-        assertThat(orders.calculateCategoryCount(Category.MAIN)).isEqualTo(1);
-        assertThat(orders.calculateCategoryCount(Category.DESSERT)).isEqualTo(2);
+        assertThat(orders.calculateCategoryCount(Category.MAIN)).isEqualTo(3);
+        assertThat(orders.calculateCategoryCount(Category.DESSERT)).isEqualTo(3);
         assertThat(orders.calculateCategoryCount(Category.DRINK)).isEqualTo(0);
     }
 
@@ -114,7 +115,7 @@ class OrdersTest {
         //when
         List<Menu> result = orders.getOrderedMenus();
 
-        //when & then
+        //then
         assertThat(result).isEqualTo(expectedResult);
     }
 
