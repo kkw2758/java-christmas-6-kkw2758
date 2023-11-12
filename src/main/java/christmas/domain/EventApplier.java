@@ -39,6 +39,10 @@ public class EventApplier {
                 .sum();
     }
 
+    public int calculatePriceAfterSale(int priceBeforeSale) {
+        return priceBeforeSale - calculateTotalSaleAmount();
+    }
+
     public Map<Menu, Integer> getGiftMenu() {
         return Collections.unmodifiableMap(giftMenu);
     }
