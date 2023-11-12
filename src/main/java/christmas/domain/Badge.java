@@ -12,6 +12,10 @@ public enum Badge {
     private final String name;
     private final Predicate<Integer> condition;
 
+    public String getName() {
+        return name;
+    }
+
     Badge(String name, Predicate<Integer> condition) {
         this.name = name;
         this.condition = condition;
