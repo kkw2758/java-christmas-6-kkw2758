@@ -117,4 +117,20 @@ class OrdersTest {
         //when & then
         assertThat(result).isEqualTo(expectedResult);
     }
+
+    @DisplayName("어떤 음식의 주문이 몇개 들어왔는지 확인한다.")
+    @Test
+    void getOrderCountWithMenuTest() {
+        //given
+        Orders orders = Orders.of(List.of(
+                OrderDto.of(Name.from("티본스테이크"), Count.from(3)),
+                OrderDto.of(Name.from("아이스크림"), Count.from(2)),
+                OrderDto.of(Name.from("초코케이크"), Count.from(1))
+        ));
+
+        //when & then
+        assertThat(orders.getOrderCountWithMenu(Menu.T_BONE_STEAK)).isEqualTo(3);
+        assertThat(orders.getOrderCountWithMenu(Menu.ICE_CREAM)).isEqualTo(2);
+        assertThat(orders.getOrderCountWithMenu(Menu.CHOCOLATE_CAKE)).isEqualTo(1);
+    }
 }
