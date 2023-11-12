@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -25,6 +26,10 @@ public class EventApplier {
         return benefitsInfo.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
+    }
+
+    public Map<Menu, Integer> getGiftMenu() {
+        return Collections.unmodifiableMap(giftMenu);
     }
 
     private void applyEvent(Orders orders, Day day) {
