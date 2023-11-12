@@ -11,6 +11,8 @@ public class OutputView {
     private static final String START_PREVIEW_MESSAGE = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
     private static final String ORDERS_FORMAT = "%s %d개";
     private static final String ORDERS_TAG = "<주문 메뉴>";
+    private static final String TOTAL_PRICE_BEFORE_SALE_TAG = "<할인 전 총주문 금액>";
+    private static final String TOTAL_PRICE_BEFORE_SALE = "%,d원";
 
     public static void println(String message) {
         System.out.println(message);
@@ -42,5 +44,10 @@ public class OutputView {
         for (Menu orderedMenu : orders.getOrderedMenus()) {
             printfWithNewLine(ORDERS_FORMAT, orderedMenu.getName(), orders.getOrderCountWithMenu(orderedMenu));
         }
+    }
+
+    public static void printTotalPriceBeforeSale(Orders orders) {
+        println(TOTAL_PRICE_BEFORE_SALE_TAG);
+        printfWithNewLine(TOTAL_PRICE_BEFORE_SALE, orders.calculatePriceBeforeSale());
     }
 }
