@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class EventApplier {
     private final int WEEKDAY_DISCOUNT_PRICE = 2023;
+    private final int WEEKEND_DISCOUNT_PRICE = 2023;
     private final Map<Event, Integer> benefitsInfo = new EnumMap<>(Event.class);
 
     private EventApplier(Orders orders, Day day) {
@@ -17,12 +18,19 @@ public class EventApplier {
 
     private void applyEvent(Orders orders, Day day) {
         applyWeekdaySaleEvent(orders, day);
+        applyWeekendSaleEvent(orders, day);
     }
 
     private void applyWeekdaySaleEvent(Orders orders, Day day) {
         if (!day.isWeekend()) {
             benefitsInfo.put(Event.WEEKDAY_SALE,
                     orders.calculateCategoryCount(Category.DESSERT) * WEEKDAY_DISCOUNT_PRICE);
+        }
+    }
+
+    private void applyWeekendSaleEvent(Orders orders, Day day) {
+        if (day.isWeekend()) {
+            benefitsInfo.put(Event.WEEKEND_SALE, orders.calculateCategoryCount(Category.MAIN) * WEEKEND_DISCOUNT_PRICE);
         }
     }
 }

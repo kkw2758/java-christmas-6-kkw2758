@@ -1,7 +1,8 @@
 package christmas.domain;
 
 public enum Event {
-    WEEKDAY_SALE("평일 할인");
+    WEEKDAY_SALE("평일 할인"),
+    WEEKEND_SALE("주말 할인");
 
     private final String name;
 
