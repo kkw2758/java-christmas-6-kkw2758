@@ -46,7 +46,9 @@ public class Orders {
     public int calculateCategoryCount(Category category) {
         return (int) orderDetails.keySet().stream()
                 .filter((menu) -> menu.getCategory().equals(category))
-                .count();
+                .map(orderDetails::get)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     private void validateOrders(List<OrderDto> orders) {
