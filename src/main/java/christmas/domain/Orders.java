@@ -27,6 +27,10 @@ public class Orders {
         }
     }
 
+    public int getOrderCountWithMenu(Menu menu) {
+        return orderDetails.get(menu);
+    }
+
     public int calculatePriceBeforeSale() {
         return orderDetails.keySet().stream()
                 .map((menu) -> menu.getPrice() * orderDetails.get(menu))
