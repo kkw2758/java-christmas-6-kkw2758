@@ -158,4 +158,15 @@ class EventApplierTest {
         //when & then
         assertThat(eventApplier.calculateTotalBenefitAmount()).isEqualTo(31246);
     }
+
+    @DisplayName("할인 후 예상 결제 금액을 계산한다.")
+    @Test
+    void calculatePriceAfterSaleTest() {
+        //given
+        EventApplier eventApplier = EventApplier.of(orders, Day.of(3));
+        int priceBeforeSale = orders.calculatePriceBeforeSale();
+
+        //when & then
+        assertThat(eventApplier.calculatePriceAfterSale(priceBeforeSale)).isEqualTo(135754);
+    }
 }
