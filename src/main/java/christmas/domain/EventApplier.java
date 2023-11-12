@@ -22,7 +22,7 @@ public class EventApplier {
         return new EventApplier(orders, day);
     }
 
-    public int calculateTotalSalePrice() {
+    public int calculateTotalBenefitAmount() {
         return benefitsInfo.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();

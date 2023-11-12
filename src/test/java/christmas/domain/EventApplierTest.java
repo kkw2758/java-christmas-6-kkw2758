@@ -141,11 +141,11 @@ class EventApplierTest {
 
     @DisplayName("할인 금액의 합계를 구한다.")
     @Test
-    void calculateTotalSalePriceTest() {
+    void calculateTotalBenefitAmountTest() {
         //given
         EventApplier eventApplier = EventApplier.of(orders, Day.of(3));
 
         //when & then
-        assertThat(eventApplier.calculateTotalSalePrice()).isEqualTo(31246);
+        assertThat(eventApplier.calculateTotalBenefitAmount()).isEqualTo(31246);
     }
 }
