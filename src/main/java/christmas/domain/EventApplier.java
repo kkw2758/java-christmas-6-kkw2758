@@ -22,8 +22,9 @@ public class EventApplier {
         return new EventApplier(orders, day);
     }
 
-    public int calculateTotalBenefitAmount() {
-        return benefitsInfo.values().stream()
+    private int calculateGiftAmount() {
+        return giftMenu.keySet().stream()
+                .map((gift) -> gift.getPrice() * giftMenu.get(gift))
                 .mapToInt(Integer::intValue)
                 .sum();
     }
