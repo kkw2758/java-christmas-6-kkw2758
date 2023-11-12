@@ -22,6 +22,16 @@ public class EventApplier {
         return new EventApplier(orders, day);
     }
 
+    public int calculateTotalBenefitAmount() {
+        return calculateTotalSaleAmount() + calculateGiftAmount();
+    }
+
+    public int calculateTotalSaleAmount() {
+        return saleInfo.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
     private int calculateGiftAmount() {
         return giftMenu.keySet().stream()
                 .map((gift) -> gift.getPrice() * giftMenu.get(gift))
