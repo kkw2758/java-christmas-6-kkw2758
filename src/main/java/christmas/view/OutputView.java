@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.domain.Badge;
 import christmas.domain.Event;
 import christmas.domain.Menu;
 import christmas.domain.Orders;
@@ -17,6 +18,7 @@ public class OutputView {
     private static final String GIFT_MENU_TAG = "<증정 메뉴>";
     private static final String BENEFITS_INFO_TAG = "<혜택 내역>";
     private static final String TOTAL_BENEFIT_AMOUNT_TAG = "<총혜택 금액>";
+    private static final String EVENT_BADGE_TAG = "<12월 이벤트 배지>";
     private static final String TOTAL_BENEFIT_AMOUNT_FORMAT = "-%,d원";
 
     private static final String TOTAL_PRICE_BEFORE_SALE_TAG = "<할인 전 총주문 금액>";
@@ -84,5 +86,10 @@ public class OutputView {
     public static void printTotalBenefitAmount(int totalBenefitAmount) {
         println("<총혜택 금액>");
         printfWithNewLine(TOTAL_BENEFIT_AMOUNT_FORMAT, totalBenefitAmount);
+    }
+
+    public static void printEventBadge(int totalBenefitAmount) {
+        println(EVENT_BADGE_TAG);
+        println(Badge.findBadge(totalBenefitAmount).getName());
     }
 }
