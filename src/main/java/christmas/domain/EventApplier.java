@@ -32,6 +32,10 @@ public class EventApplier {
         return Collections.unmodifiableMap(giftMenu);
     }
 
+    public Map<Event, Integer> getBenefitsInfo() {
+        return Collections.unmodifiableMap(benefitsInfo);
+    }
+
     private void applyEvent(Orders orders, Day day) {
         applyWeekdaySaleEvent(orders, day);
         applyWeekendSaleEvent(orders, day);
