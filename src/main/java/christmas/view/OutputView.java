@@ -20,6 +20,8 @@ public class OutputView {
     private static final String TOTAL_BENEFIT_AMOUNT_TAG = "<총혜택 금액>";
     private static final String EVENT_BADGE_TAG = "<12월 이벤트 배지>";
     private static final String TOTAL_BENEFIT_AMOUNT_FORMAT = "-%,d원";
+    private static final String PRICE_AFTER_SALE = "<할인 후 예상 결제 금액>";
+    private static final String PRICE_AFTER_SALE_FORMAT = "%,d원";
 
     private static final String TOTAL_PRICE_BEFORE_SALE_TAG = "<할인 전 총주문 금액>";
     private static final String TOTAL_PRICE_BEFORE_SALE = "%,d원";
@@ -91,5 +93,10 @@ public class OutputView {
     public static void printEventBadge(int totalBenefitAmount) {
         println(EVENT_BADGE_TAG);
         println(Badge.findBadge(totalBenefitAmount).getName());
+    }
+
+    public static void printPriceAfterSale(int priceAfterSale) {
+        println(PRICE_AFTER_SALE);
+        printfWithNewLine(PRICE_AFTER_SALE_FORMAT, priceAfterSale);
     }
 }
