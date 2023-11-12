@@ -24,11 +24,11 @@ class EventApplierTest {
     void applyWeekdayEventTest(int day) {
         //given
         EventApplier eventApplier = EventApplier.of(orders, Day.of(day));
-        Map<Event, Integer> benefitsInfo = eventApplier.getBenefitsInfo();
+        Map<Event, Integer> saleInfo = eventApplier.getSaleInfo();
         int dessertCount = 2;
 
         //when & then
-        assertThat(benefitsInfo.get(Event.WEEKDAY_SALE)).isEqualTo(dessertCount * 2023);
+        assertThat(saleInfo.get(Event.WEEKDAY_SALE)).isEqualTo(dessertCount * 2023);
     }
 
     @DisplayName("평일(일요일 ~ 목요일) 할인 : 평일이 아니면 디저트 메뉴를 할인하지 않는다.")
@@ -37,10 +37,10 @@ class EventApplierTest {
     void notApplyWeekdayEventTest(int day) {
         //given
         EventApplier eventApplier = EventApplier.of(orders, Day.of(day));
-        Map<Event, Integer> benefitsInfo = eventApplier.getBenefitsInfo();
+        Map<Event, Integer> saleInfo = eventApplier.getSaleInfo();
 
         //when & then
-        assertThat(benefitsInfo.containsKey(Event.WEEKDAY_SALE)).isEqualTo(false);
+        assertThat(saleInfo.containsKey(Event.WEEKDAY_SALE)).isEqualTo(false);
     }
 
     @DisplayName("주말(금요일, 토요일) 할인 : 주말이면 디저트 메뉴를 메뉴 1개당 2,023원 할인한다.")
@@ -50,10 +50,10 @@ class EventApplierTest {
         //given
         EventApplier eventApplier = EventApplier.of(orders, Day.of(day));
         int mainCount = 2;
-        Map<Event, Integer> benefitsInfo = eventApplier.getBenefitsInfo();
+        Map<Event, Integer> saleInfo = eventApplier.getSaleInfo();
 
         //when & then
-        assertThat(benefitsInfo.get(Event.WEEKEND_SALE)).isEqualTo(mainCount * 2023);
+        assertThat(saleInfo.get(Event.WEEKEND_SALE)).isEqualTo(mainCount * 2023);
     }
 
     @DisplayName("주말(금요일, 토요일) 할인 : 주말이 아니면 디저트 메뉴를 할인하지 않는다.")
@@ -62,10 +62,10 @@ class EventApplierTest {
     void notApplyWeekendEventTest(int day) {
         //given
         EventApplier eventApplier = EventApplier.of(orders, Day.of(day));
-        Map<Event, Integer> benefitsInfo = eventApplier.getBenefitsInfo();
+        Map<Event, Integer> saleInfo = eventApplier.getSaleInfo();
 
         //when & then
-        assertThat(benefitsInfo.containsKey(Event.WEEKEND_SALE)).isEqualTo(false);
+        assertThat(saleInfo.containsKey(Event.WEEKEND_SALE)).isEqualTo(false);
     }
 
     @DisplayName("특별 할인 : 이벤트 달력에 별이 있으면 총주문 금액에서 1,000원 할인한다.")
@@ -74,10 +74,10 @@ class EventApplierTest {
     void applySpecialSaleEventTest(int day) {
         //given
         EventApplier eventApplier = EventApplier.of(orders, Day.of(day));
-        Map<Event, Integer> benefitsInfo = eventApplier.getBenefitsInfo();
+        Map<Event, Integer> saleInfo = eventApplier.getSaleInfo();
 
         //when & then
-        assertThat(benefitsInfo.get(Event.SPECIAL_SLAE)).isEqualTo(1000);
+        assertThat(saleInfo.get(Event.SPECIAL_SLAE)).isEqualTo(1000);
     }
 
     @DisplayName("특별 할인 : 이벤트 달력에 별이 없으면 할인하지 않는다.")
@@ -86,10 +86,10 @@ class EventApplierTest {
     void notApplySpecialSaleEventTest(int day) {
         //given
         EventApplier eventApplier = EventApplier.of(orders, Day.of(day));
-        Map<Event, Integer> benefitsInfo = eventApplier.getBenefitsInfo();
+        Map<Event, Integer> saleInfo = eventApplier.getSaleInfo();
 
         //when & then
-        assertThat(benefitsInfo.containsKey(Event.SPECIAL_SLAE)).isEqualTo(false);
+        assertThat(saleInfo.containsKey(Event.SPECIAL_SLAE)).isEqualTo(false);
     }
 
     @DisplayName("크리스마스 디데이 할인 : 1,000원으로 시작하여 크리스마스가 다가올수록 날마다 할인 금액이 100원씩 증가한다.")
@@ -98,10 +98,10 @@ class EventApplierTest {
     void applyChristmasSaleEventTest(int day, int expectedSaleAmount) {
         //given
         EventApplier eventApplier = EventApplier.of(orders, Day.of(day));
-        Map<Event, Integer> benefitsInfo = eventApplier.getBenefitsInfo();
+        Map<Event, Integer> saleInfo = eventApplier.getSaleInfo();
 
         //when & then
-        assertThat(benefitsInfo.get(Event.CHRISTMAS_SALE)).isEqualTo(expectedSaleAmount);
+        assertThat(saleInfo.get(Event.CHRISTMAS_SALE)).isEqualTo(expectedSaleAmount);
     }
 
     @DisplayName("크리스마스 디데이 할인 : 크리스마스가 지나면 할인하지 않는다.")
@@ -110,10 +110,10 @@ class EventApplierTest {
     void notApplyChristmasSaleEventTest(int day) {
         //given
         EventApplier eventApplier = EventApplier.of(orders, Day.of(day));
-        Map<Event, Integer> benefitsInfo = eventApplier.getBenefitsInfo();
+        Map<Event, Integer> saleInfo = eventApplier.getSaleInfo();
 
         //when & then
-        assertThat(benefitsInfo.containsKey(Event.CHRISTMAS_SALE)).isEqualTo(false);
+        assertThat(saleInfo.containsKey(Event.CHRISTMAS_SALE)).isEqualTo(false);
     }
 
     @DisplayName("증정 이벤트 : 할인 전 총주문 금액이 12만 원 이상일 때, 샴페인 1개 증정한다.")
@@ -139,7 +139,17 @@ class EventApplierTest {
         assertThat(eventApplier.getGiftMenu().size()).isEqualTo(0);
     }
 
-    @DisplayName("할인 금액의 합계를 구한다.")
+    @DisplayName("할인 금액의 합계를 계산한다.")
+    @Test
+    void calculateTotalSaleAmountTest() {
+        //given
+        EventApplier eventApplier = EventApplier.of(orders, Day.of(3));
+
+        //when & then
+        assertThat(eventApplier.calculateTotalSaleAmount()).isEqualTo(6246);
+    }
+
+    @DisplayName("총 혜택 금액을 계산한다.")
     @Test
     void calculateTotalBenefitAmountTest() {
         //given
