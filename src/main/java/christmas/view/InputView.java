@@ -24,14 +24,19 @@ public class InputView {
     }
 
     public static Day inputDay() {
-        return Day.of(inputNaturalNumber());
+        return InputUtil.retryOnException(() -> {
+            return Day.of(inputNaturalNumber());
+        }, true);
+
     }
 
     public static Orders inputOrders() {
-        return Orders.of(Arrays.stream(split(readLine(), ","))
-                .map((member) -> split(member, "-"))
-                .map(InputView::parseOrder)
-                .toList());
+        return InputUtil.retryOnException(() -> {
+            return Orders.of(Arrays.stream(split(readLine(), ","))
+                    .map((member) -> split(member, "-"))
+                    .map(InputView::parseOrder)
+                    .toList());
+        }, true);
     }
 
     private static OrderDto parseOrder(String[] orderInput) {
@@ -68,7 +73,7 @@ public class InputView {
 
     private static void validateNaturalNumber(String userInput) {
         if (isNotNaturalNumber(userInput)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_NATURAL_NUMBER_FORMAT_ERROR.getMessage());
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DAY_OF_MONTH_ERROR.getMessage());
         }
     }
 
@@ -78,7 +83,7 @@ public class InputView {
 
     private static void validateBlankInput(final String input) {
         if (input.isBlank()) {
-            throw new IllegalArgumentException(ErrorMessage.BLANK_INPUT_ERROR.getMessage());
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DAY_OF_MONTH_ERROR.getMessage());
         }
     }
 }
