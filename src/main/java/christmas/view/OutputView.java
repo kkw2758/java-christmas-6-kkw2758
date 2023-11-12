@@ -16,6 +16,9 @@ public class OutputView {
     private static final String ORDERS_TAG = "<주문 메뉴>";
     private static final String GIFT_MENU_TAG = "<증정 메뉴>";
     private static final String BENEFITS_INFO_TAG = "<혜택 내역>";
+    private static final String TOTAL_BENEFIT_AMOUNT_TAG = "<총혜택 금액>";
+    private static final String TOTAL_BENEFIT_AMOUNT_FORMAT = "-%,d원";
+
     private static final String TOTAL_PRICE_BEFORE_SALE_TAG = "<할인 전 총주문 금액>";
     private static final String TOTAL_PRICE_BEFORE_SALE = "%,d원";
 
@@ -76,5 +79,10 @@ public class OutputView {
         for (Event event : benefitsInfo.keySet()) {
             printfWithNewLine(BENEFITS_FORMAT, event.getName(), benefitsInfo.get(event));
         }
+    }
+
+    public static void printTotalBenefitAmount(int totalBenefitAmount) {
+        println("<총혜택 금액>");
+        printfWithNewLine(TOTAL_BENEFIT_AMOUNT_FORMAT, totalBenefitAmount);
     }
 }
