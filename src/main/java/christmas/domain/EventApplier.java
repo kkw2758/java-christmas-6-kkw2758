@@ -12,7 +12,7 @@ public class EventApplier {
     private final int GIFT_COUNT = 1;
     private final Menu GIFT = Menu.CHAMPAGNE;
     private final Map<Menu, Integer> giftMenu = new EnumMap<>(Menu.class);
-    private final Map<Event, Integer> saleInfo = new EnumMap<>(Event.class);
+    private final Map<Event, Integer> benefitInfo = new EnumMap<>(Event.class);
 
     private EventApplier(Orders orders, Day day) {
         applyEvent(orders, day);
@@ -27,7 +27,9 @@ public class EventApplier {
     }
 
     public int calculateTotalSaleAmount() {
-        return saleInfo.values().stream()
+        return benefitInfo.keySet().stream()
+                .filter((event) -> event != Event.GIFT)
+                .map(benefitInfo::get)
                 .mapToInt(Integer::intValue)
                 .sum();
     }
@@ -47,8 +49,8 @@ public class EventApplier {
         return Collections.unmodifiableMap(giftMenu);
     }
 
-    public Map<Event, Integer> getSaleInfo() {
-        return Collections.unmodifiableMap(saleInfo);
+    public Map<Event, Integer> getBenefitInfo() {
+        return Collections.unmodifiableMap(benefitInfo);
     }
 
     private void applyEvent(Orders orders, Day day) {
@@ -61,32 +63,33 @@ public class EventApplier {
 
     private void applyWeekdaySaleEvent(Orders orders, Day day) {
         if (!day.isWeekend() && orders.calculateCategoryCount(Category.DESSERT) != 0) {
-            saleInfo.put(Event.WEEKDAY_SALE,
+            benefitInfo.put(Event.WEEKDAY_SALE,
                     orders.calculateCategoryCount(Category.DESSERT) * WEEKDAY_DISCOUNT_PRICE);
         }
     }
 
     private void applyWeekendSaleEvent(Orders orders, Day day) {
         if (day.isWeekend() && orders.calculateCategoryCount(Category.MAIN) != 0) {
-            saleInfo.put(Event.WEEKEND_SALE, orders.calculateCategoryCount(Category.MAIN) * WEEKEND_DISCOUNT_PRICE);
+            benefitInfo.put(Event.WEEKEND_SALE, orders.calculateCategoryCount(Category.MAIN) * WEEKEND_DISCOUNT_PRICE);
         }
     }
 
     private void applyChristmasSaleEvent(Day day) {
         if (day.getDayOfMonth() <= 25) {
-            saleInfo.put(Event.CHRISTMAS_SALE, 900 + day.getDayOfMonth() * 100);
+            benefitInfo.put(Event.CHRISTMAS_SALE, 900 + day.getDayOfMonth() * 100);
         }
     }
 
     private void applySpecialSaleEvent(Day day) {
         if (day.getStar()) {
-            saleInfo.put(Event.SPECIAL_SLAE,SPECIAL_DISCOUNT_PRICE);
+            benefitInfo.put(Event.SPECIAL_SLAE,SPECIAL_DISCOUNT_PRICE);
         }
     }
 
     private void applyGiftEvent(Orders orders) {
         if (orders.calculatePriceBeforeSale() >= MIN_PRICE_FOR_GIFT) {
             giftMenu.put(GIFT, GIFT_COUNT);
+            benefitInfo.put(Event.GIFT, GIFT.getPrice());
         }
     }
 }
