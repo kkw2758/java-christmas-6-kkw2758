@@ -27,6 +27,11 @@ public class Orders {
         }
     }
 
+    public List<Menu> getOrderedMenus() {
+        return orderDetails.keySet().stream()
+                .toList();
+    }
+
     public int getOrderCountWithMenu(Menu menu) {
         return orderDetails.get(menu);
     }
