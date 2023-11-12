@@ -42,6 +42,10 @@ public class Day {
         return star;
     }
 
+    public int getDayOfMonth() {
+        return date.getDayOfMonth();
+    }
+
     public boolean isWeekend() {
         return weekend.contains(date.getDayOfWeek().getValue());
     }
