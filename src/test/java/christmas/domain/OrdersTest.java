@@ -100,4 +100,21 @@ class OrdersTest {
         assertThat(orders.calculateCategoryCount(Category.DRINK)).isEqualTo(0);
     }
 
+    @DisplayName("주문한 메뉴들의 목록을 확인한다.")
+    @Test
+    void getOrderedMenusTest() {
+        //given
+        Orders orders = Orders.of(List.of(
+                OrderDto.of(Name.from("티본스테이크"), Count.from(3)),
+                OrderDto.of(Name.from("아이스크림"), Count.from(2)),
+                OrderDto.of(Name.from("초코케이크"), Count.from(1))
+        ));
+        List<Menu> expectedResult = List.of(Menu.T_BONE_STEAK, Menu.CHOCOLATE_CAKE, Menu.ICE_CREAM);
+
+        //when
+        List<Menu> result = orders.getOrderedMenus();
+
+        //when & then
+        assertThat(result).isEqualTo(expectedResult);
+    }
 }
