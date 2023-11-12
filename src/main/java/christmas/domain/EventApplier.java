@@ -45,14 +45,14 @@ public class EventApplier {
     }
 
     private void applyWeekdaySaleEvent(Orders orders, Day day) {
-        if (!day.isWeekend()) {
+        if (!day.isWeekend() && orders.calculateCategoryCount(Category.DESSERT) != 0) {
             benefitsInfo.put(Event.WEEKDAY_SALE,
                     orders.calculateCategoryCount(Category.DESSERT) * WEEKDAY_DISCOUNT_PRICE);
         }
     }
 
     private void applyWeekendSaleEvent(Orders orders, Day day) {
-        if (day.isWeekend()) {
+        if (day.isWeekend() && orders.calculateCategoryCount(Category.MAIN) != 0) {
             benefitsInfo.put(Event.WEEKEND_SALE, orders.calculateCategoryCount(Category.MAIN) * WEEKEND_DISCOUNT_PRICE);
         }
     }
