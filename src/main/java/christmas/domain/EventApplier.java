@@ -7,7 +7,11 @@ public class EventApplier {
     private final int WEEKDAY_DISCOUNT_PRICE = 2023;
     private final int WEEKEND_DISCOUNT_PRICE = 2023;
     private final int SPECIAL_DISCOUNT_PRICE = 1000;
+    private final int MIN_PRICE_FOR_GIFT = 120000;
+    private final int GIFT_COUNT = 1;
+    private final Menu GIFT = Menu.CHAMPAGNE;
     private final Map<Event, Integer> benefitsInfo = new EnumMap<>(Event.class);
+    private final Map<Menu, Integer> giftMenu = new EnumMap<>(Menu.class);
 
     private EventApplier(Orders orders, Day day) {
         applyEvent(orders, day);
@@ -21,6 +25,7 @@ public class EventApplier {
         applyWeekdaySaleEvent(orders, day);
         applyWeekendSaleEvent(orders, day);
         applySpecialSaleEvent(day);
+        applyGiftEvent(orders);
     }
 
     private void applyWeekdaySaleEvent(Orders orders, Day day) {
@@ -39,6 +44,13 @@ public class EventApplier {
     private void applySpecialSaleEvent(Day day) {
         if (day.getStar()) {
             benefitsInfo.put(Event.SPECIAL_SLAE,SPECIAL_DISCOUNT_PRICE);
+        }
+    }
+
+    private void applyGiftEvent(Orders orders) {
+        if (orders.calculatePriceBeforeSale() >= MIN_PRICE_FOR_GIFT) {
+            giftMenu.put(GIFT, GIFT_COUNT);
+            benefitsInfo.put(Event.GIFT, GIFT.getPrice());
         }
     }
 }
