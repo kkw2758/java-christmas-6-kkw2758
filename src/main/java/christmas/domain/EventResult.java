@@ -8,17 +8,17 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EventApplier {
+public class EventResult {
     private final Map<Menu, Integer> giftMenu = new EnumMap<>(Menu.class);
     private final Map<Event, Integer> benefitInfo = new HashMap<>();
 
-    private EventApplier(Orders orders, Day day) {
+    private EventResult(Orders orders, Day day) {
         applySaleEvent(orders, day);
         applyGiftEvent(orders, day);
     }
 
-    public static EventApplier of(Orders orders, Day day) {
-        return new EventApplier(orders, day);
+    public static EventResult of(Orders orders, Day day) {
+        return new EventResult(orders, day);
     }
 
     public int calculateTotalBenefitAmount() {
