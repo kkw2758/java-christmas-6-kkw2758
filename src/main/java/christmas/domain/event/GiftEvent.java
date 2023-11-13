@@ -10,9 +10,7 @@ import java.util.function.BiPredicate;
 public enum GiftEvent implements Event {
     GIFT("증정 이벤트",
             (orders, day) -> orders.calculatePriceBeforeSale() >= 120000,
-            new EnumMap<Menu, Integer>(
-                    Map.of(Menu.CHAMPAGNE, 1)
-            )
+            new EnumMap<Menu, Integer>(Map.of(Menu.CHAMPAGNE, 1))
     );
 
     private final String name;
@@ -23,6 +21,13 @@ public enum GiftEvent implements Event {
         this.name = name;
         this.condition = condition;
         this.giftInfo = giftInfo;
+    }
+
+    private int calculateGiftPrice() {
+        return giftInfo.keySet().stream()
+                .map((menu) -> giftInfo.get(menu) * menu.getPrice())
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     @Override
@@ -37,10 +42,7 @@ public enum GiftEvent implements Event {
     @Override
     public Map<Event, Integer> getBenefitInfo(Orders orders, Day day) {
         if (checkEventTarget(orders, day)) {
-            return Map.of(this, this.giftInfo.keySet().stream()
-                    .map((menu) -> this.giftInfo.get(menu) * menu.getPrice())
-                    .mapToInt(Integer::intValue)
-                    .sum());
+            return Map.of(this, calculateGiftPrice());
         }
         return Map.of();
     }
