@@ -38,7 +38,7 @@ public enum GiftEvent implements Event {
     @Override
     public Map<Event, Integer> getBenefitInfo(Orders orders, Day day) {
         return Map.of(this, this.giftInfo.keySet().stream()
-                .map(this.giftInfo::get)
+                .map((menu) -> this.giftInfo.get(menu) * menu.getPrice())
                 .mapToInt(Integer::intValue)
                 .sum());
     }
