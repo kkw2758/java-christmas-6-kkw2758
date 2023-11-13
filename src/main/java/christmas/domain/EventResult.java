@@ -54,18 +54,14 @@ public class EventResult {
 
     private void applySaleEvent(Orders orders, Day day) {
         for (SaleEvent saleEvent : SaleEvent.values()) {
-            if (saleEvent.checkEventTarget(orders, day)) {
-                benefitInfo.putAll(saleEvent.getBenefitInfo(orders, day));
-            }
+            benefitInfo.putAll(saleEvent.getBenefitInfo(orders, day));
         }
     }
 
     private void applyGiftEvent(Orders orders, Day day) {
         for (GiftEvent giftEvent : GiftEvent.values()) {
-            if (giftEvent.checkEventTarget(orders, day)) {
-                benefitInfo.putAll(giftEvent.getBenefitInfo(orders, day));
-                giftMenu.putAll(giftEvent.getGiftMenu(orders, day));
-            }
+            benefitInfo.putAll(giftEvent.getBenefitInfo(orders, day));
+            giftMenu.putAll(giftEvent.getGiftMenu(orders, day));
         }
     }
 }

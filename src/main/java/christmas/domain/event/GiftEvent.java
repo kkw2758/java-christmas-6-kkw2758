@@ -30,17 +30,19 @@ public enum GiftEvent implements Event {
         return name;
     }
 
-    @Override
-    public boolean checkEventTarget(Orders orders, Day day) {
+    private boolean checkEventTarget(Orders orders, Day day) {
         return condition.test(orders, day);
     }
 
     @Override
     public Map<Event, Integer> getBenefitInfo(Orders orders, Day day) {
-        return Map.of(this, this.giftInfo.keySet().stream()
-                .map((menu) -> this.giftInfo.get(menu) * menu.getPrice())
-                .mapToInt(Integer::intValue)
-                .sum());
+        if (checkEventTarget(orders, day)) {
+            return Map.of(this, this.giftInfo.keySet().stream()
+                    .map((menu) -> this.giftInfo.get(menu) * menu.getPrice())
+                    .mapToInt(Integer::intValue)
+                    .sum());
+        }
+        return Map.of();
     }
 
     public Map<Menu, Integer> getGiftMenu(Orders orders, Day day) {
