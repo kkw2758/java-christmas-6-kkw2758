@@ -82,7 +82,7 @@ public class EventApplier {
 
     private void applySpecialSaleEvent(Day day) {
         if (day.getStar()) {
-            benefitInfo.put(Event.SPECIAL_SLAE,SPECIAL_DISCOUNT_PRICE);
+            benefitInfo.put(Event.SPECIAL_SALE,SPECIAL_DISCOUNT_PRICE);
         }
     }
 

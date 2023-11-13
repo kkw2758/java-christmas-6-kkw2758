@@ -77,7 +77,7 @@ class EventApplierTest {
         Map<Event, Integer> benefitInfo = eventApplier.getBenefitInfo();
 
         //when & then
-        assertThat(benefitInfo.get(Event.SPECIAL_SLAE)).isEqualTo(1000);
+        assertThat(benefitInfo.get(Event.SPECIAL_SALE)).isEqualTo(1000);
     }
 
     @DisplayName("특별 할인 : 이벤트 달력에 별이 없으면 할인하지 않는다.")
@@ -89,7 +89,7 @@ class EventApplierTest {
         Map<Event, Integer> benefitInfo = eventApplier.getBenefitInfo();
 
         //when & then
-        assertThat(benefitInfo.containsKey(Event.SPECIAL_SLAE)).isEqualTo(false);
+        assertThat(benefitInfo.containsKey(Event.SPECIAL_SALE)).isEqualTo(false);
     }
 
     @DisplayName("크리스마스 디데이 할인 : 1,000원으로 시작하여 크리스마스가 다가올수록 날마다 할인 금액이 100원씩 증가한다.")
