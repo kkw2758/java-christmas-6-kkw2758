@@ -1,7 +1,7 @@
 package christmas.view;
 
 import christmas.domain.Badge;
-import christmas.domain.Event;
+import christmas.domain.event.Event;
 import christmas.domain.Menu;
 import christmas.domain.Orders;
 import java.util.Map;
