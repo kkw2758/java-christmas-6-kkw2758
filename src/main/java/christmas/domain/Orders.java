@@ -11,7 +11,6 @@ public class Orders {
     private final int MAX_MENU_COUNT = 20;
     private final Map<Menu, Integer> orderDetails = new EnumMap<>(Menu.class);
 
-
     private Orders(List<OrderDto> orders) {
         validateOrders(orders);
         initOrders(orders);

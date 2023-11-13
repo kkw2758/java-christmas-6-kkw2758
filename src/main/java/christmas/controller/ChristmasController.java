@@ -1,13 +1,12 @@
 package christmas.controller;
 
 import christmas.domain.Day;
-import christmas.domain.EventApplier;
+import christmas.domain.EventResult;
 import christmas.domain.Orders;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
 public class ChristmasController {
-
     public void run() {
         OutputView.printStartMessage();
         OutputView.printDayRequestMessage();
@@ -20,7 +19,7 @@ public class ChristmasController {
         OutputView.printOrders(orders);
         OutputView.printTotalPriceBeforeSale(orders);
 
-        EventApplier eventApplier = EventApplier.of(orders, day);
+        EventResult eventApplier = EventResult.of(orders, day);
         OutputView.printGiftMenu(eventApplier.getGiftMenu());
         OutputView.printBenefitsInfo(eventApplier.getBenefitInfo());
         OutputView.printTotalBenefitAmount(eventApplier.calculateTotalBenefitAmount());

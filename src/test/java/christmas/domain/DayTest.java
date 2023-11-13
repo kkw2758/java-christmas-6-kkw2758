@@ -10,7 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class DayTest {
-
     @DisplayName("날짜가 1 이상 31이하의 숫자가 아니라면 예외 처리한다.")
     @ParameterizedTest
     //given

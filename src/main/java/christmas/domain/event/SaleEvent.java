@@ -9,13 +9,18 @@ import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 
 public enum SaleEvent implements Event {
-
-    WEEKDAY_SALE("평일 할인", (orders, day) -> !day.isWeekend() && orders.calculateCategoryCount(Category.DESSERT) != 0,
-            (orders, day) -> orders.calculateCategoryCount(Category.DESSERT) * 2023), WEEKEND_SALE("주말 할인",
+    WEEKDAY_SALE("평일 할인",
+            (orders, day) -> !day.isWeekend() && orders.calculateCategoryCount(Category.DESSERT) != 0,
+            (orders, day) -> orders.calculateCategoryCount(Category.DESSERT) * 2023),
+    WEEKEND_SALE("주말 할인",
             (orders, day) -> day.isWeekend() && orders.calculateCategoryCount(Category.MAIN) != 0,
-            (orders, day) -> orders.calculateCategoryCount(Category.MAIN) * 2023), SPECIAL_SALE("특별 할인",
-            (orders, day) -> day.getStar(), (orders, day) -> 1000), CHRISTMAS_SALE("크리스마스 디데이 할인",
-            (orders, day) -> day.getDayOfMonth() <= 25, (orders, day) -> 900 + day.getDayOfMonth() * 100);
+            (orders, day) -> orders.calculateCategoryCount(Category.MAIN) * 2023),
+    SPECIAL_SALE("특별 할인",
+            (orders, day) -> day.getStar(),
+            (orders, day) -> 1000),
+    CHRISTMAS_SALE("크리스마스 디데이 할인",
+            (orders, day) -> day.getDayOfMonth() <= 25,
+            (orders, day) -> 900 + day.getDayOfMonth() * 100);
 
     private final String name;
     private final BiPredicate<Orders, Day> condition;

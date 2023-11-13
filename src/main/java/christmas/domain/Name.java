@@ -3,7 +3,6 @@ package christmas.domain;
 import christmas.exception.ErrorMessage;
 
 public class Name {
-
     private final String value;
 
     private Name(String name) {

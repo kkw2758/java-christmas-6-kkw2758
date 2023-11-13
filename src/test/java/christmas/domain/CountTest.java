@@ -10,7 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class CountTest {
-
     @Test
     @DisplayName("메뉴 주문 수량이 1미만이면 에러 발생")
     void countOutRangeTest() {

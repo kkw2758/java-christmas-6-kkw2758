@@ -5,7 +5,6 @@ import christmas.domain.Count;
 import christmas.domain.Name;
 
 public class OrderDto {
-
     private final Count count;
     private final Name name;
 
