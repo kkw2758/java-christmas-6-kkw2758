@@ -3,6 +3,7 @@ package christmas.domain.event;
 import christmas.domain.Category;
 import christmas.domain.Day;
 import christmas.domain.Orders;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
@@ -37,12 +38,10 @@ public enum SaleEvent implements Event{
     }
 
     public static boolean hasEvent(Event event) {
-        try {
-            GiftEvent.valueOf(event.getName());
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
+        return Arrays.stream(SaleEvent.values())
+                .map(SaleEvent::getName)
+                .toList()
+                .contains(event.getName());
     }
 
     @Override
