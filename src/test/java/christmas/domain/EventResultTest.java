@@ -2,19 +2,11 @@ package christmas.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import christmas.domain.dto.OrderDto;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class EventResultTest {
-    private final Orders orders = Orders.of(List.of(
-                    OrderDto.of(Name.from("티본스테이크"), Count.from(1)),
-                    OrderDto.of(Name.from("바비큐립"), Count.from(1)),
-                    OrderDto.of(Name.from("초코케이크"), Count.from(2)),
-                    OrderDto.of(Name.from("제로콜라"), Count.from(1))
-            )
-    );
+    private final Orders orders = Orders.of("티본스테이크-1, 바비큐립-1, 초코케이크-2, 제로콜라-1");
 
     @DisplayName("할인 금액의 합계를 계산한다.")
     @Test

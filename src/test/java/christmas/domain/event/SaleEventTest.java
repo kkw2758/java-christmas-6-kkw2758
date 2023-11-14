@@ -2,12 +2,8 @@ package christmas.domain.event;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import christmas.domain.Count;
 import christmas.domain.Day;
-import christmas.domain.Name;
 import christmas.domain.Orders;
-import christmas.domain.dto.OrderDto;
-import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,13 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class SaleEventTest {
-    private final Orders orders = Orders.of(List.of(
-                    OrderDto.of(Name.from("티본스테이크"), Count.from(1)),
-                    OrderDto.of(Name.from("바비큐립"), Count.from(1)),
-                    OrderDto.of(Name.from("초코케이크"), Count.from(2)),
-                    OrderDto.of(Name.from("제로콜라"), Count.from(1))
-            )
-    );
+    private final Orders orders = Orders.of("티본스테이크-1, 바비큐립-1, 초코케이크-2, 제로콜라-1");
 
     @DisplayName("평일(일요일 ~ 목요일) 할인 : 평일이면 디저트 메뉴를 메뉴 1개당 2,023원 할인한다.")
     @ParameterizedTest

@@ -3,7 +3,6 @@ package christmas.domain;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import christmas.domain.dto.OrderDto;
 import christmas.exception.ErrorMessage;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -15,9 +14,7 @@ class OrdersTest {
     @Test
     void validateMenuCountErrorTest() {
         //given
-        List<OrderDto> orders = List.of(
-                OrderDto.of(Name.from("티본스테이크"), Count.from(10)),
-                OrderDto.of(Name.from("아이스크림"), Count.from(12)));
+        String orders = "티본스테이크-10, 아이스크림-12";
 
         //when & then
         assertThatThrownBy(() -> Orders.of(orders))
@@ -29,9 +26,7 @@ class OrdersTest {
     @Test
     void validateDuplicateMenuErrorTest() {
         //given
-        List<OrderDto> orders = List.of(
-                OrderDto.of(Name.from("티본스테이크"), Count.from(10)),
-                OrderDto.of(Name.from("티본스테이크"), Count.from(1)));
+        String orders = "티본스테이크-10, 티본스테이크-1";
 
         //when & then
         assertThatThrownBy(() -> Orders.of(orders))
@@ -43,10 +38,7 @@ class OrdersTest {
     @Test
     void validateOnlyDrinkErrorTest() {
         //given
-        List<OrderDto> orders = List.of(
-                OrderDto.of(Name.from("제로콜라"), Count.from(10)),
-                OrderDto.of(Name.from("레드와인"), Count.from(1)),
-                OrderDto.of(Name.from("샴페인"), Count.from(8)));
+        String orders = "제로콜라-10, 레드와인-1, 샴페인-8";
 
         //when & then
         assertThatThrownBy(() -> Orders.of(orders))
@@ -58,9 +50,7 @@ class OrdersTest {
     @Test
     void successOrdersTest() {
         //given
-        List<OrderDto> orders = List.of(
-                OrderDto.of(Name.from("티본스테이크"), Count.from(10)),
-                OrderDto.of(Name.from("아이스크림"), Count.from(10)));
+        String orders = "티본스테이크-10, 아이스크림-10";
 
         //when & then
         Assertions.assertDoesNotThrow(() -> Orders.of(orders));
@@ -70,11 +60,7 @@ class OrdersTest {
     @Test
     void calculatePriceBeforeSaleTest() {
         //given
-        Orders orders = Orders.of(List.of(
-                OrderDto.of(Name.from("티본스테이크"), Count.from(2)),
-                OrderDto.of(Name.from("아이스크림"), Count.from(2)),
-                OrderDto.of(Name.from("샴페인"), Count.from(1))
-        ));
+        Orders orders = Orders.of("티본스테이크-2, 아이스크림-2, 샴페인-1");
 
         //when
         int result = orders.calculatePriceBeforeSale();
@@ -88,11 +74,7 @@ class OrdersTest {
     @Test
     void calculateCategoryCountTest() {
         //given
-        Orders orders = Orders.of(List.of(
-                OrderDto.of(Name.from("티본스테이크"), Count.from(3)),
-                OrderDto.of(Name.from("아이스크림"), Count.from(2)),
-                OrderDto.of(Name.from("초코케이크"), Count.from(1))
-        ));
+        Orders orders = Orders.of("티본스테이크-3, 아이스크림-2, 초코케이크-1");
 
         //when & then
         assertThat(orders.calculateCategoryCount(Category.APPETIZER)).isEqualTo(0);
@@ -105,11 +87,7 @@ class OrdersTest {
     @Test
     void getOrderedMenusTest() {
         //given
-        Orders orders = Orders.of(List.of(
-                OrderDto.of(Name.from("티본스테이크"), Count.from(3)),
-                OrderDto.of(Name.from("아이스크림"), Count.from(2)),
-                OrderDto.of(Name.from("초코케이크"), Count.from(1))
-        ));
+        Orders orders = Orders.of("티본스테이크-3, 아이스크림-2, 초코케이크-1");
         List<Menu> expectedResult = List.of(Menu.T_BONE_STEAK, Menu.CHOCOLATE_CAKE, Menu.ICE_CREAM);
 
         //when
@@ -123,11 +101,7 @@ class OrdersTest {
     @Test
     void getOrderCountWithMenuTest() {
         //given
-        Orders orders = Orders.of(List.of(
-                OrderDto.of(Name.from("티본스테이크"), Count.from(3)),
-                OrderDto.of(Name.from("아이스크림"), Count.from(2)),
-                OrderDto.of(Name.from("초코케이크"), Count.from(1))
-        ));
+        Orders orders = Orders.of("티본스테이크-3, 아이스크림-2, 초코케이크-1");
 
         //when & then
         assertThat(orders.getOrderCountWithMenu(Menu.T_BONE_STEAK)).isEqualTo(3);
