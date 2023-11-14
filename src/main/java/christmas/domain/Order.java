@@ -5,6 +5,8 @@ import christmas.exception.ErrorMessage;
 
 public class Order {
     private static final String NATURAL_NUMBER_REGULAR_EXPRESSION = "\\d+";
+    private static final String DELIMITER = "-";
+    private static final int ORDER_INPUT_LENGTH = 2;
     private final Count count;
     private final Name name;
 
@@ -15,31 +17,31 @@ public class Order {
     }
 
     public static Order of(String order) {
-        return new Order(order.split("-"));
+        return new Order(order.split(DELIMITER));
     }
 
-    private static void validateOrder(String[] orderInput) {
-        validateOrderInputLength(orderInput);
-        validateOrderInputFormat(orderInput);
+    private static void validateOrder(String[] order) {
+        validateOrderInputLength(order);
+        validateOrderInputFormat(order);
     }
 
-    private static void validateOrderInputFormat(String[] orderInput) {
-        if (isNotNaturalNumber(orderInput[1])) {
+    private static void validateOrderInputFormat(String[] order) {
+        if (isNotNaturalNumber(order[1])) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
         }
     }
 
-    private static void validateOrderInputLength(String[] orderInput) {
-        if (!checkOrderInputLength(orderInput)) {
+    private static void validateOrderInputLength(String[] order) {
+        if (!checkOrderInputLength(order)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
         }
     }
 
-    private static boolean checkOrderInputLength(String[] orderInput) {
-        return orderInput.length == 2;
+    private static boolean checkOrderInputLength(String[] order) {
+        return order.length == ORDER_INPUT_LENGTH;
     }
-    private static boolean isNotNaturalNumber(final String userInput) {
-        return !userInput.matches(NATURAL_NUMBER_REGULAR_EXPRESSION);
+    private static boolean isNotNaturalNumber(final String order) {
+        return !order.matches(NATURAL_NUMBER_REGULAR_EXPRESSION);
     }
 
     public Count getCount() {
