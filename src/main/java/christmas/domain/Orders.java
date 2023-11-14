@@ -22,6 +22,7 @@ public class Orders {
 
     private static List<Order> stringToOrderList(String orderInput) {
         return Arrays.stream(orderInput.split(","))
+                .map(String::trim)
                 .map(Order::of)
                 .toList();
     }
