@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.Badge;
 import christmas.domain.Day;
 import christmas.domain.EventResult;
 import christmas.domain.Orders;
@@ -42,10 +43,11 @@ public class ChristmasController {
     }
 
     private void printEventResult(EventResult eventResult, Orders orders) {
+        int totalBenefitAmount = eventResult.calculateTotalBenefitAmount();
         OutputView.printGiftMenu(eventResult.getGiftMenu());
         OutputView.printBenefitsInfo(eventResult.getBenefitInfo());
-        OutputView.printTotalBenefitAmount(eventResult.calculateTotalBenefitAmount());
+        OutputView.printTotalBenefitAmount(totalBenefitAmount);
         OutputView.printPriceAfterSale(eventResult.calculatePriceAfterSale(orders.calculatePriceBeforeSale()));
-        OutputView.printEventBadge(eventResult.calculateTotalBenefitAmount());
+        OutputView.printEventBadge(Badge.findBadge(totalBenefitAmount).getName());
     }
 }
