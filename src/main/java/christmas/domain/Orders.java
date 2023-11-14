@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class Orders {
     private final int MAX_MENU_COUNT = 20;
+    private static final String DELIMITER = ",";
     private final Map<Menu, Integer> orderDetails = new EnumMap<>(Menu.class);
 
     private Orders(List<Order> orders) {
@@ -21,7 +22,7 @@ public class Orders {
     }
 
     private static List<Order> stringToOrderList(String orderInput) {
-        return Arrays.stream(orderInput.split(","))
+        return Arrays.stream(orderInput.split(DELIMITER))
                 .map(String::trim)
                 .map(Order::of)
                 .toList();
