@@ -8,12 +8,13 @@ public class InputView {
 
     public static String readLine() {
         String userInput = Console.readLine();
-        validateBlankInput(userInput);
+        validateOrdersBlankInput(userInput);
         return userInput;
     }
 
     public static int inputNaturalNumber() {
-        String userInput = readLine();
+        String userInput = Console.readLine();
+        validateDayBlankInput(userInput);
         validateNaturalNumber(userInput);
         return Integer.parseInt(userInput);
     }
@@ -28,9 +29,14 @@ public class InputView {
         return !userInput.matches(NATURAL_NUMBER_REGULAR_EXPRESSION);
     }
 
-    private static void validateBlankInput(final String input) {
+    private static void validateDayBlankInput(final String input) {
         if (input.isBlank()) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_DAY_OF_MONTH_ERROR.getMessage());
+        }
+    }
+    private static void validateOrdersBlankInput(final String input) {
+        if (input.isBlank()) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
         }
     }
 }
