@@ -3,17 +3,16 @@ package christmas.controller;
 import christmas.domain.Day;
 import christmas.domain.EventResult;
 import christmas.domain.Orders;
+import christmas.view.InputUtil;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
 public class ChristmasController {
     public void run() {
         OutputView.printStartMessage();
-        OutputView.printDayRequestMessage();
-        Day day = InputView.inputDay();
+        Day day = generateDay();
 
-        OutputView.printOrderRequestMessage();
-        Orders orders = InputView.inputOrders();
+        Orders orders = generateOrders();
         OutputView.printStartPreviewMessage(day.getDate().getDayOfMonth());
 
         OutputView.printOrders(orders);
@@ -26,5 +25,19 @@ public class ChristmasController {
 
         OutputView.printPriceAfterSale(eventApplier.calculatePriceAfterSale(orders.calculatePriceBeforeSale()));
         OutputView.printEventBadge(eventApplier.calculateTotalBenefitAmount());
+    }
+
+    private Day generateDay() {
+        OutputView.printDayRequestMessage();
+        return InputUtil.retryOnException(() -> {
+            return Day.of(InputView.inputNaturalNumber());
+        }, true);
+    }
+
+    private Orders generateOrders(){
+        OutputView.printOrderRequestMessage();
+        return InputUtil.retryOnException(() -> {
+            return Orders.of(InputView.readLine());
+        }, true);
     }
 }
