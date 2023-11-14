@@ -5,6 +5,7 @@ import christmas.exception.ErrorMessage;
 
 public class InputView {
     private static final String NATURAL_NUMBER_REGULAR_EXPRESSION = "\\d+";
+
     public static String readLine() {
         String userInput = Console.readLine();
         validateBlankInput(userInput);

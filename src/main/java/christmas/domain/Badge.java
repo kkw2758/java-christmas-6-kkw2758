@@ -20,6 +20,7 @@ public enum Badge {
         this.name = name;
         this.condition = condition;
     }
+
     public static Badge findBadge(int totalBenefitAmount) {
         return Arrays.stream(Badge.values())
                 .filter(ranking -> ranking.condition.test(totalBenefitAmount))

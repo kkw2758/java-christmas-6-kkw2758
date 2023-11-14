@@ -40,6 +40,7 @@ public class Order {
     private static boolean checkOrderInputLength(String[] order) {
         return order.length == ORDER_INPUT_LENGTH;
     }
+
     private static boolean isNotNaturalNumber(final String order) {
         return !order.matches(NATURAL_NUMBER_REGULAR_EXPRESSION);
     }

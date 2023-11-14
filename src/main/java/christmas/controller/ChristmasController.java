@@ -24,7 +24,7 @@ public class ChristmasController {
         }, true);
     }
 
-    private Orders generateOrders(){
+    private Orders generateOrders() {
         OutputView.printOrderRequestMessage();
         return InputUtil.retryOnException(() -> {
             return Orders.of(InputView.readLine());

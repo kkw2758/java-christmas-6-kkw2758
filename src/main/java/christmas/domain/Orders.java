@@ -29,7 +29,7 @@ public class Orders {
     }
 
     private void initOrders(List<Order> orders) {
-        for(Order order : orders) {
+        for (Order order : orders) {
             orderDetails.put(Menu.findMenuByName(order.getName().getValue()), order.getCount().getValue());
         }
     }
@@ -51,7 +51,7 @@ public class Orders {
     }
 
     public int calculateCategoryCount(Category category) {
-        return (int) orderDetails.keySet().stream()
+        return orderDetails.keySet().stream()
                 .filter((menu) -> menu.getCategory().equals(category))
                 .map(orderDetails::get)
                 .mapToInt(Integer::intValue)

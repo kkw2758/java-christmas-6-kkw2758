@@ -14,9 +14,10 @@ public class Name {
         return new Name(name);
     }
 
-    public String getValue(){
+    public String getValue() {
         return value;
     }
+
     private void validateNameInMenu(String name) {
         if (!Menu.has(name)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
