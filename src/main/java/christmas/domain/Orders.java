@@ -59,9 +59,16 @@ public class Orders {
     }
 
     private void validateOrders(List<Order> orders) {
+        validateBlankOrders(orders);
         validateMenuCount(orders);
         validateDuplicateMenu(orders);
         validateOnlyDrink(orders);
+    }
+
+    private void validateBlankOrders(List<Order> orders) {
+        if (orders.size() == 0) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
+        }
     }
 
     private void validateOnlyDrink(List<Order> orders) {
