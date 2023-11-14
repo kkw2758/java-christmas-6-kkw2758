@@ -48,6 +48,9 @@ public enum GiftEvent implements Event {
     }
 
     public Map<Menu, Integer> getGiftMenu(Orders orders, Day day) {
-        return this.giftInfo;
+        if (checkEventTarget(orders, day)) {
+            return this.giftInfo;
+        }
+        return Map.of();
     }
 }
