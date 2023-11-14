@@ -1,6 +1,5 @@
 package christmas.view;
 
-import christmas.domain.Badge;
 import christmas.domain.event.Event;
 import christmas.domain.Menu;
 import christmas.domain.Orders;
