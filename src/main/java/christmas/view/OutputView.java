@@ -100,9 +100,9 @@ public class OutputView {
         printfWithNewLine(TOTAL_BENEFIT_AMOUNT_FORMAT, totalBenefitAmount);
     }
 
-    public static void printEventBadge(int totalBenefitAmount) {
+    public static void printEventBadge(String eventBadgeName) {
         println(EVENT_BADGE_TAG);
-        println(Badge.findBadge(totalBenefitAmount).getName());
+        println(eventBadgeName);
     }
 
     public static void printPriceAfterSale(int priceAfterSale) {
