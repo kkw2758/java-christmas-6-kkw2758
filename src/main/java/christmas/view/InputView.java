@@ -1,13 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.domain.Count;
-import christmas.domain.Day;
-import christmas.domain.Name;
-import christmas.domain.dto.OrderDto;
-import christmas.domain.Orders;
 import christmas.exception.ErrorMessage;
-import java.util.Arrays;
 
 public class InputView {
     private static final String NATURAL_NUMBER_REGULAR_EXPRESSION = "\\d+";
@@ -21,54 +15,6 @@ public class InputView {
         String userInput = readLine();
         validateNaturalNumber(userInput);
         return Integer.parseInt(userInput);
-    }
-
-    public static Day inputDay() {
-        return InputUtil.retryOnException(() -> {
-            return Day.of(inputNaturalNumber());
-        }, true);
-
-    }
-
-    public static Orders inputOrders() {
-        return InputUtil.retryOnException(() -> {
-            return Orders.of(Arrays.stream(split(readLine(), ","))
-                    .map((member) -> split(member, "-"))
-                    .map(InputView::parseOrder)
-                    .toList());
-        }, true);
-    }
-
-    private static OrderDto parseOrder(String[] orderInput) {
-        validateOrderInput(orderInput);
-        Name name = Name.from(orderInput[0].trim());
-        Count count = Count.from(Integer.parseInt(orderInput[1].trim()));
-        return OrderDto.of(name, count);
-    }
-
-    private static String[] split(String userInput, String delimiter) {
-        return userInput.split(delimiter);
-    }
-
-    private static void validateOrderInput(String[] orderInput) {
-        validateOrderInputLength(orderInput);
-        validateOrderInputFormat(orderInput);
-    }
-
-    private static void validateOrderInputFormat(String[] orderInput) {
-        if (isNotNaturalNumber(orderInput[1])) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
-        }
-    }
-
-    private static void validateOrderInputLength(String[] orderInput) {
-        if (!checkOrderInputLength(orderInput)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_INPUT_ERROR.getMessage());
-        }
-    }
-
-    private static boolean checkOrderInputLength(String[] orderInput) {
-        return orderInput.length == 2;
     }
 
     private static void validateNaturalNumber(String userInput) {
