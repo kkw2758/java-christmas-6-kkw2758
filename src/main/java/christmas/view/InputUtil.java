@@ -9,10 +9,14 @@ public class InputUtil {
                 return supplier.get();
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-                if (lineBreak) {
-                    System.out.println();
-                }
+                printLineBreakOrNot(lineBreak);
             }
+        }
+    }
+
+    public static void printLineBreakOrNot(boolean flag) {
+        if (flag) {
+            System.out.println();
         }
     }
 }
