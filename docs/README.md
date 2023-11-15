@@ -7,6 +7,30 @@
 
 * * *
 
+## 🌏시스템 흐름도
+
+### 🔎전체적인 흐름
+
+![Alt text](https://velog.velcdn.com/images/kkw2758/post/180d8812-fde1-43d8-aeed-d79722fbcbdd/image.png)
+
+### 🔎사용자로 부터 식당에 방문할 날짜를 입력 받는다.
+
+![Alt text](https://velog.velcdn.com/images/kkw2758/post/895d321b-992b-40bd-b953-af7b39408b8b/image.png)
+
+### 🔎사용자로부터 주문할 메뉴와 개수를 입력 받는다.
+
+![Alt text](https://velog.velcdn.com/images/kkw2758/post/876f8ad6-7ec0-4070-a46b-17de3c7ef71c/image.png)
+
+### 🔎주문 정보와 식당 날짜에 맞는 이벤트를 적용하고 결과(증정 메뉴, 혜택 내역, 총혜택 금액)를 구한다.
+
+![Alt text](https://velog.velcdn.com/images/kkw2758/post/6e6508b1-d630-457e-850b-daf3dea065fd/image.png)
+
+### 🔎주문 정보와 이벤트 결과를 이용해 할인 후 예상 결제 금액과 이벤트 베지를 구한다.
+
+![Alt text](https://velog.velcdn.com/images/kkw2758/post/79d6a4d2-89bd-4aad-a48d-9c1114d1f896/image.png)
+
+* * *
+
 ## 📝 구현 기능 목록
 
 ### ✔️입력
