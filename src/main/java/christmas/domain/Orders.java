@@ -67,8 +67,11 @@ public class Orders {
     }
 
     public int getSpecificMenuCategoryCount(MenuCategory menuCategory) {
-        return (int) orders.stream()
+        return orders.stream()
                 .filter(order -> order.getMenu().isSpecificMenuCategory(menuCategory))
-                .count();
+                .map(Order::getCount)
+                .map(Count::getValue)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 }
