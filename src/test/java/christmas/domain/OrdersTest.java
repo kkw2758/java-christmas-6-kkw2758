@@ -2,6 +2,7 @@ package christmas.domain;
 
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import christmas.dto.request.OrderRequest;
@@ -59,5 +60,20 @@ class OrdersTest {
         assertThatThrownBy(() -> Orders.from(generateOrdersRequest("양송이수프-11,레드와인-10")))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("할인전 총 주문 금액을 구한다.")
+    @Test
+    void calculateTotalPriceBeforeSale() {
+        // given
+        OrdersRequest ordersRequest = generateOrdersRequest("티본스테이크-1,레드와인-2,해산물파스타-1");
+        Orders orders = Orders.from(ordersRequest);
+
+        // when
+        int actual = orders.calculateTotalPriceBeforeSale();
+        int expected = Menu.T_BONE_STEAK.getPrice() + Menu.RED_WINE.getPrice() * 2 + Menu.SEAFOOD_PASTA.getPrice();
+
+        // then
+        assertThat(actual).isEqualTo(expected);
     }
 }

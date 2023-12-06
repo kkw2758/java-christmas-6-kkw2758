@@ -58,4 +58,11 @@ public class Orders {
                 .map(Order::getMenu)
                 .toList();
     }
+
+    public int calculateTotalPriceBeforeSale() {
+        return orders.stream()
+                .map(Order::calculatePrice)
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
 }

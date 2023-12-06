@@ -17,6 +17,10 @@ public class Order {
         return new Order(Menu.from(orderRequest.menu()), Count.from(orderRequest.count()));
     }
 
+    public int calculatePrice() {
+        return menu.getPrice() * count.getValue();
+    }
+
     public Menu getMenu() {
         return menu;
     }
