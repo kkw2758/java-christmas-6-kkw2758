@@ -76,4 +76,21 @@ class OrdersTest {
         // then
         assertThat(actual).isEqualTo(expected);
     }
+
+
+    @DisplayName("주문에 특정 카테고리의 음식이 얼마나 포함되어 있는지 구한다.")
+    @Test
+    void getSpecificMenuCategoryCountTest() {
+        // given
+        OrdersRequest ordersRequest = generateOrdersRequest("티본스테이크-1,레드와인-2,해산물파스타-1");
+        Orders orders = Orders.from(ordersRequest);
+
+        // when
+        int actual = orders.getSpecificMenuCategoryCount(MenuCategory.MAIN);
+        int expected = 2;
+        
+        // then
+        assertThat(actual).isEqualTo(expected);
+    }
+
 }
