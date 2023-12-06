@@ -2,10 +2,14 @@ package christmas.domain;
 
 import christmas.exception.ErrorMessage;
 import christmas.utils.Validator;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 public class VisitDate {
     private static final int MIN_VISIT_DATE = 1;
     private static final int MAX_VISIT_DATE = 31;
+    private static final int YEAR = 2023;
+    private static final int MONTH = 12;
 
     private final int visitDate;
 
@@ -20,6 +24,11 @@ public class VisitDate {
 
     private static void validateVisitDate(int visitDate) {
         Validator.validateInRange(visitDate, MIN_VISIT_DATE, MAX_VISIT_DATE, ErrorMessage.INVALID_VISIT_DATE_INPUT);
+    }
+
+
+    public DayOfWeek getDayOfWeek() {
+        return LocalDate.of(YEAR, MONTH, visitDate).getDayOfWeek();
     }
 
     public int getVisitDate() {
