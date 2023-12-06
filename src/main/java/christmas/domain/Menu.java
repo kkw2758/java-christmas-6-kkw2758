@@ -34,6 +34,10 @@ public enum Menu {
                 .orElseThrow(ErrorMessage.INVALID_ORDERS::generateException);
     }
 
+    public boolean isSpecificMenuCategory(MenuCategory menuCategory) {
+        return category.equals(menuCategory);
+    }
+
     public MenuCategory getCategory() {
         return category;
     }
