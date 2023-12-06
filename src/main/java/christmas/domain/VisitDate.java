@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.exception.ErrorMessage;
+import christmas.utils.Validator;
 
 public class VisitDate {
     private static final int MIN_VISIT_DATE = 1;
@@ -18,13 +19,7 @@ public class VisitDate {
     }
 
     private static void validateVisitDate(int visitDate) {
-        if (checkVisitDateNotInRange(visitDate)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_VISIT_DATE_INPUT.getMessage());
-        }
-    }
-
-    private static boolean checkVisitDateNotInRange(int visitDate) {
-        return visitDate < MIN_VISIT_DATE || visitDate > MAX_VISIT_DATE;
+        Validator.validateInRange(visitDate, MIN_VISIT_DATE, MAX_VISIT_DATE, ErrorMessage.INVALID_VISIT_DATE_INPUT);
     }
 
     public int getVisitDate() {
