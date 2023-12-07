@@ -7,6 +7,7 @@ import christmas.domain.VisitDate;
 import christmas.domain.event.DiscountEvent;
 import christmas.domain.event.PresentEvent;
 import christmas.dto.request.OrdersRequest;
+import christmas.dto.response.PromotionResult;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -16,13 +17,15 @@ public class ChristmasPromotionService {
     private ChristmasPromotionService() {
     }
 
-    public void getPromotionResult(Orders orders, VisitDate visitDate) {
+    public PromotionResult getPromotionResult(Orders orders, VisitDate visitDate) {
         int totalPriceBeforeSale = orders.calculateTotalPriceBeforeSale();
         HashMap<String, Integer> benefitInfo = getBenefitInfo(orders, visitDate);
         HashMap<String, Integer> presentItems = getPresentItems(orders, visitDate);
         int totalBenefitPrice = calculateTotalBenefitPrice(benefitInfo);
         int totalPriceAfterSale = calculateTotalPriceAfterSale(totalPriceBeforeSale, totalBenefitPrice, presentItems);
         String badgeName = findBadgeName(totalBenefitPrice);
+        return new PromotionResult(orders.toResponse(), benefitInfo, presentItems, totalPriceBeforeSale, totalBenefitPrice,
+                totalPriceAfterSale, badgeName);
     }
 
     private HashMap<String, Integer> getBenefitInfo(Orders orders, VisitDate visitDate) {
