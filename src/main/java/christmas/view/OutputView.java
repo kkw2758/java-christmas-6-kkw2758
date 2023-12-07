@@ -25,12 +25,12 @@ public class OutputView {
         printlnMessage(String.format(message, args));
     }
 
-    public void printFormat(String message, Object... args) {
-        printMessage(String.format(message, args));
-    }
-
     public void printMessage(String message) {
         System.out.print(message);
+    }
+
+    public void printNewLine() {
+        printMessage("\n");
     }
 
     public void printStartMessage() {
@@ -39,7 +39,7 @@ public class OutputView {
 
     public void printEventBenefitPreviewMessage(VisitDate visitDate) {
         printlnFormat("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!", visitDate.getVisitDate());
-        printMessage("\n");
+        printlnMessage("");
     }
 
     public void printPromotionResult(PromotionResult promotionResult) {
@@ -57,29 +57,29 @@ public class OutputView {
         for (OrderResponse orderResponse : ordersResponse.orderResponses()) {
             printOrderResponse(orderResponse);
         }
-        printMessage("\n");
+        printNewLine();
     }
 
     private void printOrderResponse(OrderResponse orderResponse) {
         printlnFormat("%s %d개", orderResponse.menu(), orderResponse.count());
-        printMessage("");
+        printNewLine();
     }
 
     private void printTotalPriceBeforeSale(int totalPriceBeforeSale) {
         printlnMessage("<할인 전 총주문 금액>");
         printlnFormat("%,d원", totalPriceBeforeSale);
-        printMessage("\n");
+        printNewLine();
     }
 
     private void printPresentItems(HashMap<String, Integer> presentItems) {
         printlnMessage("<증정 메뉴>");
         if (presentItems.isEmpty()) {
             printlnMessage("없음");
-            printMessage("\n");
+            printNewLine();
             return;
         }
         presentItems.forEach(this::printPresentItem);
-        printMessage("\n");
+        printNewLine();
     }
 
     private void printPresentItem(String itemName, int count) {
@@ -90,23 +90,23 @@ public class OutputView {
         printlnMessage("<혜택 내역>");
         if (benefitInfo.isEmpty()) {
             printlnMessage("없음");
-            printMessage("\n");
+            printNewLine();
             return;
         }
         benefitInfo.forEach((benefitName, benefitPrice) -> printlnFormat("%s: -%,d원", benefitName, benefitPrice));
-        printMessage("\n");
+        printNewLine();
     }
 
     private void printTotalBenefitPrice(int totalBenefitPrice) {
         printlnMessage("<총혜택 금액>");
         printlnFormat("%,d원", totalBenefitPrice * -1);
-        printMessage("\n");
+        printNewLine();
     }
 
     private void printTotalPriceAfterSale(int totalPriceAfterSale) {
         printlnMessage("<할인 후 예상 결제 금액>");
         printlnFormat("%,d원", totalPriceAfterSale);
-        printMessage("\n");
+        printNewLine();
     }
 
     private void printBadge(String badge) {
