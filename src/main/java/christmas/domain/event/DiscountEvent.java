@@ -12,12 +12,12 @@ public enum DiscountEvent {
 
     WEEK_DAY("평일 할인",
             (orders, visitDate) -> List.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.SUNDAY)
-                    .contains(visitDate.getDayOfWeek()),
+                    .contains(visitDate.getDayOfWeek()) && orders.getSpecificMenuCategoryCount(MenuCategory.DESSERT) != 0,
             (orders, visitDate) -> orders.getSpecificMenuCategoryCount(MenuCategory.DESSERT) * 2023
     ),
     WEEKEND("주말 할인",
             (orders, visitDate) -> List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY)
-                    .contains(visitDate.getDayOfWeek()),
+                    .contains(visitDate.getDayOfWeek()) && orders.getSpecificMenuCategoryCount(MenuCategory.MAIN) != 0,
             (orders, visitDate) -> orders.getSpecificMenuCategoryCount(MenuCategory.MAIN) * 2023
     ),
     CHRISTMAS_D_DAY("크리스마스 디데이 할인",
@@ -46,5 +46,9 @@ public enum DiscountEvent {
 
     public int calculateBenefitPrice(Orders orders, VisitDate visitDate) {
         return saleFunction.apply(orders, visitDate);
+    }
+
+    public String getName() {
+        return name;
     }
 }
