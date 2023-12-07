@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.domain.Badge;
 import christmas.domain.Orders;
 import christmas.domain.VisitDate;
 import christmas.domain.event.DiscountEvent;
@@ -18,6 +19,7 @@ public class ChristmasPromotionService {
         int totalPriceBeforeSale = orders.calculateTotalPriceBeforeSale();
         HashMap<String, Integer> benefitInfo = getBenefitInfo(orders, visitDate);
         HashMap<String, Integer> presentItems = getPresentItems(orders, visitDate);
+        int totalBenefitPrice = calculateTotalBenefitPrice(benefitInfo);
     }
 
     private HashMap<String, Integer> getBenefitInfo(Orders orders, VisitDate visitDate) {
@@ -37,6 +39,16 @@ public class ChristmasPromotionService {
                 .filter(presentEvent -> presentEvent.isDiscountTarget(orders, visitDate))
                 .forEach(presentEvent -> presentItems.putAll(presentEvent.getPresentItems()));
         return presentItems;
+    }
+
+    private String findBadgeName(int totalBenefitPrice) {
+        return Badge.from(totalBenefitPrice).getName();
+    }
+
+    private int calculateTotalBenefitPrice(HashMap<String, Integer> benefitInfo) {
+        return benefitInfo.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static ChristmasPromotionService getInstance() {
