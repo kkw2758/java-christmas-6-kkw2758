@@ -2,6 +2,7 @@ package christmas.domain;
 
 
 import christmas.dto.request.OrderRequest;
+import christmas.dto.response.OrderResponse;
 
 public class Order {
 
@@ -27,5 +28,9 @@ public class Order {
 
     public Count getCount() {
         return count;
+    }
+
+    public OrderResponse toResponse() {
+        return new OrderResponse(menu.getName(), count.getValue());
     }
 }
