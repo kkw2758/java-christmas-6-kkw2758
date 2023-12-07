@@ -17,6 +17,7 @@ public class ChristmasPromotionService {
     public void getPromotionResult(Orders orders, VisitDate visitDate) {
         int totalPriceBeforeSale = orders.calculateTotalPriceBeforeSale();
         HashMap<String, Integer> benefitInfo = getBenefitInfo(orders, visitDate);
+        HashMap<String, Integer> presentItems = getPresentItems(orders, visitDate);
     }
 
     private HashMap<String, Integer> getBenefitInfo(Orders orders, VisitDate visitDate) {
@@ -28,6 +29,14 @@ public class ChristmasPromotionService {
                 .filter(presentEvent -> presentEvent.isDiscountTarget(orders, visitDate))
                 .forEach(presentEvent -> benefitInfo.put(presentEvent.getName(), presentEvent.calculateBenefitPrice()));
         return benefitInfo;
+    }
+
+    private HashMap<String, Integer> getPresentItems(Orders orders, VisitDate visitDate) {
+        HashMap<String, Integer> presentItems = new HashMap<>();
+        Arrays.stream(PresentEvent.values())
+                .filter(presentEvent -> presentEvent.isDiscountTarget(orders, visitDate))
+                .forEach(presentEvent -> presentItems.putAll(presentEvent.getPresentItems()));
+        return presentItems;
     }
 
     public static ChristmasPromotionService getInstance() {

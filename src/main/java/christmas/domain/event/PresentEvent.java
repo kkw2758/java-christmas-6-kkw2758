@@ -3,6 +3,7 @@ package christmas.domain.event;
 import christmas.domain.Menu;
 import christmas.domain.Orders;
 import christmas.domain.VisitDate;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiPredicate;
 
@@ -38,7 +39,9 @@ public enum PresentEvent {
         return name;
     }
 
-    public Map<Menu, Integer> getPresentItems() {
-        return presentItems;
+    public Map<String, Integer> getPresentItems() {
+        Map<String, Integer> result = new HashMap<>();
+        presentItems.forEach((key, value) -> result.put(key.getName(), value));
+        return result;
     }
 }
