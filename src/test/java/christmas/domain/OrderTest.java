@@ -17,7 +17,7 @@ class OrderTest {
 
         // when
         int actual = order.calculatePrice();
-        int expected = 55500 * 3;
+        int expected = 55000 * 3;
 
         // then
         assertThat(actual).isEqualTo(expected);
