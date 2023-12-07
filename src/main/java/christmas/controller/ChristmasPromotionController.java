@@ -2,6 +2,7 @@ package christmas.controller;
 
 import christmas.domain.Orders;
 import christmas.domain.VisitDate;
+import christmas.dto.response.PromotionResult;
 import christmas.exception.ExceptionHandler;
 import christmas.service.ChristmasPromotionService;
 import christmas.view.InputView;
@@ -23,8 +24,12 @@ public class ChristmasPromotionController {
     private final ChristmasPromotionService christmasPromotionService = ChristmasPromotionService.getInstance();
 
     public void run() {
-        ExceptionHandler.handle(this::generateVisitDateFromUserInput);
-        ExceptionHandler.handle(this::generateOrdersFromUserInput);
+        outputView.printStartMessage();
+        VisitDate visitDate = ExceptionHandler.handle(this::generateVisitDateFromUserInput);
+        Orders orders = ExceptionHandler.handle(this::generateOrdersFromUserInput);
+        outputView.printEventBenefitPreviewMessage(visitDate);
+        PromotionResult promotionResult = christmasPromotionService.getPromotionResult(orders, visitDate);
+        outputView.printPromotionResult(promotionResult);
     }
 
     public VisitDate generateVisitDateFromUserInput() {
