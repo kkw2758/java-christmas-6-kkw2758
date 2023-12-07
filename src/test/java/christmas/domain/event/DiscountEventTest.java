@@ -17,24 +17,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class DiscountEventTest {
 
-    private static final String COMMA_DELIMITER = ",";
-    private static final String DASH_DELIMITER = "-";
-    private static final int MENU_INDEX = 0;
-    private static final int COUNT_INDEX = 1;
-
-    private OrdersRequest generateOrdersRequest(String orders) {
-        return new OrdersRequest(Parser.split(orders, COMMA_DELIMITER).stream()
-                .map(this::generateOrderRequest)
-                .toList());
-    }
-
-    private OrderRequest generateOrderRequest(String order) {
-        String menu = Parser.split(order, DASH_DELIMITER).get(MENU_INDEX);
-        String count = Parser.split(order, DASH_DELIMITER).get(COUNT_INDEX);
-        return new OrderRequest(menu, Integer.parseInt(count));
-    }
-
-    private final Orders orders = Orders.from(generateOrdersRequest("티본스테이크-2,초코케이크-3,제로콜라-2"));
+    private final Orders orders = Orders.from(Parser.generateOrdersRequest("티본스테이크-2,초코케이크-3,제로콜라-2"));
 
 
     @DisplayName("2023/12/01 ~ 2023/12/25 기간동안 크리스마스 디데이 할인을 적용한다.")
