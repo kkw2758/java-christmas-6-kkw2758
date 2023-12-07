@@ -1,6 +1,6 @@
 package christmas.service;
 
-import christmas.domain.Badge;
+import christmas.domain.Menu;
 import christmas.domain.Orders;
 import christmas.domain.VisitDate;
 import christmas.domain.event.DiscountEvent;
@@ -20,6 +20,7 @@ public class ChristmasPromotionService {
         HashMap<String, Integer> benefitInfo = getBenefitInfo(orders, visitDate);
         HashMap<String, Integer> presentItems = getPresentItems(orders, visitDate);
         int totalBenefitPrice = calculateTotalBenefitPrice(benefitInfo);
+        int totalPriceAfterSale = calculateTotalPriceAfterSale(totalPriceBeforeSale, totalBenefitPrice, presentItems);
     }
 
     private HashMap<String, Integer> getBenefitInfo(Orders orders, VisitDate visitDate) {
@@ -41,12 +42,21 @@ public class ChristmasPromotionService {
         return presentItems;
     }
 
-    private String findBadgeName(int totalBenefitPrice) {
-        return Badge.from(totalBenefitPrice).getName();
-    }
-
     private int calculateTotalBenefitPrice(HashMap<String, Integer> benefitInfo) {
         return benefitInfo.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private int calculateTotalPriceAfterSale(int totalPriceBeforeSale, int totalBenefitPrice,
+                                             HashMap<String, Integer> presentItems) {
+        return totalPriceBeforeSale - totalBenefitPrice + calculatePresentItemsBenefit(presentItems);
+    }
+
+    private int calculatePresentItemsBenefit(HashMap<String, Integer> presentItems) {
+        return presentItems.entrySet().stream()
+                .map(stringIntegerEntry -> Menu.from(stringIntegerEntry.getKey()).getPrice()
+                        * stringIntegerEntry.getValue())
                 .mapToInt(Integer::intValue)
                 .sum();
     }
