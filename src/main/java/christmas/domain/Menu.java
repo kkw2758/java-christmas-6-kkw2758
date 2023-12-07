@@ -6,14 +6,14 @@ import java.util.Arrays;
 public enum Menu {
     MUSHROOM_SOUP("양송이수프", 6_000, MenuCategory.APPETIZER),
     TAPAS("타파스", 5_500, MenuCategory.APPETIZER),
-    CAESAR_SALAD("시저샐러드", 5_500, MenuCategory.APPETIZER),
-    T_BONE_STEAK("티본스테이크", 55_500, MenuCategory.MAIN),
-    BBQ_LIP("바비큐립", 54_500, MenuCategory.MAIN),
+    CAESAR_SALAD("시저샐러드", 8_000, MenuCategory.APPETIZER),
+    T_BONE_STEAK("티본스테이크", 55_000, MenuCategory.MAIN),
+    BBQ_LIP("바비큐립", 54_000, MenuCategory.MAIN),
     SEAFOOD_PASTA("해산물파스타", 35_500, MenuCategory.MAIN),
     CHRISTMAS_PASTA("크리스마스파스타", 25_500, MenuCategory.MAIN),
-    CHOCOLATE_CAKE("초코케이크", 15_500, MenuCategory.DESSERT),
-    ICE_CREAM("아이스크림", 25_500, MenuCategory.DESSERT),
-    ZERO_COLA("제로콜라", 3_500, MenuCategory.DRINK),
+    CHOCOLATE_CAKE("초코케이크", 15_000, MenuCategory.DESSERT),
+    ICE_CREAM("아이스크림", 5_000, MenuCategory.DESSERT),
+    ZERO_COLA("제로콜라", 3_000, MenuCategory.DRINK),
     RED_WINE("레드와인", 60_000, MenuCategory.DRINK),
     CHAMPAGNE("샴페인", 25_000, MenuCategory.DRINK);
 
@@ -44,5 +44,9 @@ public enum Menu {
 
     public int getPrice() {
         return price;
+    }
+
+    public String getName() {
+        return name;
     }
 }
