@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.domain.Menu;
 import christmas.domain.Orders;
 import christmas.domain.VisitDate;
 import christmas.domain.event.DiscountEvent;
@@ -42,6 +43,20 @@ public class ChristmasPromotionService {
                 .sum();
     }
 
+    private Map<Menu, Integer> getPresentInfo(Orders orders, VisitDate visitDate) {
+        Map<Menu, Integer> presentInfo = new HashMap<>();
+        Arrays.stream(PresentEvent.values())
+                .filter(presentEvent -> presentEvent.isEventTarget(visitDate, orders))
+                .forEach(presentEvent -> presentInfo.putAll(presentEvent.getPresentInfo()));
+        return presentInfo;
+    }
+
+    private int calculateTotalPresentPrice(Map<Menu, Integer> presentInfo) {
+        return presentInfo.entrySet().stream()
+                .mapToInt(menuIntegerEntry -> menuIntegerEntry.getKey().getPrice() * menuIntegerEntry.getValue())
+                .sum();
+    }
+    
     public VisitDate generateVisitDate(int visitDate) {
         return VisitDate.from(visitDate);
     }
