@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 import christmas.dto.request.OrdersRequest;
 import christmas.exception.ErrorMessage;
 import christmas.utils.Parser;
@@ -42,5 +44,21 @@ class OrdersTest {
         Assertions.assertThatThrownBy(() -> Orders.from(ordersRequest))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("할인 전 총주문 금액을 구한다.")
+    @Test
+    void calculateTotalPriceBeforeSaleTest() {
+        // given
+        OrdersRequest ordersRequest = Parser.toOrdersRequest("티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1",
+                ErrorMessage.INVALID_ORDERS);
+        Orders orders = Orders.from(ordersRequest);
+        
+        // when
+        int actual = orders.calculateTotalPriceBeforeSale();
+        int expected = 142_000;
+
+        // then
+        assertThat(actual).isEqualTo(expected);
     }
 }

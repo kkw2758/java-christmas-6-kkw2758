@@ -45,4 +45,10 @@ public class Orders {
                 .distinct()
                 .toList();
     }
+
+    public int calculateTotalPriceBeforeSale() {
+        return orders.stream()
+                .mapToInt(Order::calculateOrderPrice)
+                .sum();
+    }
 }
