@@ -2,6 +2,7 @@ package christmas.controller;
 
 import christmas.domain.Orders;
 import christmas.domain.VisitDate;
+import christmas.dto.response.PromotionResult;
 import christmas.exception.ErrorMessage;
 import christmas.exception.ExceptionHandler;
 import christmas.service.ChristmasPromotionService;
@@ -25,7 +26,8 @@ public class ChristmasPromotionController {
         VisitDate visitDate = ExceptionHandler.handle(this::generateVisitDateFromUserInput);
         Orders orders = ExceptionHandler.handle(this::generateOrdersFromUserInput);
         outputView.printOrders(orders.toResponse());
-
+        PromotionResult promotionResult = christmasPromotionService.getPromotionResult(orders, visitDate);
+        outputView.printPromotionResult(promotionResult);
     }
 
     private VisitDate generateVisitDateFromUserInput() {
