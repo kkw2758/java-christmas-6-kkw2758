@@ -56,7 +56,14 @@ public class ChristmasPromotionService {
                 .mapToInt(menuIntegerEntry -> menuIntegerEntry.getKey().getPrice() * menuIntegerEntry.getValue())
                 .sum();
     }
-    
+
+    private int calculateTotalPriceAfterSale(Orders orders, Map<String, Integer> benefitInfo,
+                                             Map<Menu, Integer> presentInfo) {
+        return orders.calculateTotalPriceBeforeSale() - calculateTotalBenefitPrice(benefitInfo)
+                + calculateTotalPresentPrice(
+                presentInfo);
+    }
+
     public VisitDate generateVisitDate(int visitDate) {
         return VisitDate.from(visitDate);
     }
