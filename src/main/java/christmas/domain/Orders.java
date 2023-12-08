@@ -20,11 +20,17 @@ public class Orders {
         List<Order> orders = ordersRequest.orderRequests().stream()
                 .map(Order::from)
                 .toList();
-        Validator.validateNoDuplicates(orders, ErrorMessage.INVALID_ORDERS);
+        Validator.validateNoDuplicates(convertOrdersContainMenus(orders), ErrorMessage.INVALID_ORDERS);
         validateNotOnlyDrink(orders, ErrorMessage.INVALID_ORDERS);
         Validator.validateInRange(calculateMenuCount(orders), MIN_ORDERS_COUNT, MAX_ORDERS_COUNT,
                 ErrorMessage.INVALID_ORDERS);
         return new Orders(orders);
+    }
+
+    private static List<Menu> convertOrdersContainMenus(List<Order> orders) {
+        return orders.stream()
+                .map(Order::getMenu)
+                .toList();
     }
 
     private static void validateNotOnlyDrink(List<Order> orders, ErrorMessage e) {
