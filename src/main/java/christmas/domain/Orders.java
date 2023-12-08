@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.dto.request.OrdersRequest;
+import christmas.dto.response.OrdersResponse;
 import christmas.exception.ErrorMessage;
 import christmas.utils.Validator;
 import java.util.List;
@@ -65,5 +66,11 @@ public class Orders {
                 .filter(menu -> menu.getCategory().equals(category))
                 .toList()
                 .isEmpty();
+    }
+
+    public OrdersResponse toResponse() {
+        return new OrdersResponse(orders.stream()
+                .map(Order::toResponse)
+                .toList());
     }
 }

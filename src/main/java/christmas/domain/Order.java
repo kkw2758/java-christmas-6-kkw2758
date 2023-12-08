@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.dto.request.OrderRequest;
+import christmas.dto.response.OrderResponse;
 
 public class Order {
     private Menu menu;
@@ -17,6 +18,10 @@ public class Order {
 
     public int calculateOrderPrice() {
         return menu.getPrice() * count.getValue();
+    }
+
+    public OrderResponse toResponse() {
+        return new OrderResponse(menu.getName(), count.getValue());
     }
 
     public Menu getMenu() {
