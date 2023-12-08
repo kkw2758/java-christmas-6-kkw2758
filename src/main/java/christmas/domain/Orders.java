@@ -51,4 +51,19 @@ public class Orders {
                 .mapToInt(Order::calculateOrderPrice)
                 .sum();
     }
+
+    public int getSpecificCategoryCount(Category category) {
+        return orders.stream()
+                .filter(order -> order.getMenu().getCategory().equals(category))
+                .mapToInt(order -> order.getCount().getValue())
+                .sum();
+    }
+
+    public boolean hasSpecificCategory(Category category) {
+        return !orders.stream()
+                .map(Order::getMenu)
+                .filter(menu -> menu.getCategory().equals(category))
+                .toList()
+                .isEmpty();
+    }
 }
