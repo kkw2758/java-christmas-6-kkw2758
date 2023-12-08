@@ -35,4 +35,8 @@ public enum DiscountEvent {
     public int calculateBenefitPrice(VisitDate visitDate, Orders orders) {
         return benefitFunction.apply(visitDate, orders);
     }
+
+    public String getName() {
+        return name;
+    }
 }
