@@ -19,6 +19,12 @@ public class OutputView {
     private static final String TOTAL_PRICE_AFTER_SALE = "<할인 후 예상 결제 금액>";
     private static final String BADGE_TAG = "<12월 이벤트 배지>";
     private static final String NOTHING = "없음";
+    private static final String TOTAL_PRICE_AFTER_SALE_FORMAT = "%,d원";
+    private static final String ORDERS_TAG = "<주문 메뉴>";
+    private static final String ORDERS_FORMAT = "%s %d개";
+    private static final String TOTAL_BENEFIT_PRICE_FORMAT = "-%,d원";
+    private static final String PRESENT_INFO_FORMAT = "%s %d개";
+    private static final String BENEFIT_INFO_FORMAT = "%s : -%,d원";
 
     private OutputView() {
     }
@@ -37,9 +43,9 @@ public class OutputView {
 
 
     public void printOrders(OrdersResponse ordersResponse) {
-        printlnMessage("<주문 메뉴>");
+        printlnMessage(ORDERS_TAG);
         for (OrderResponse orderResponse : ordersResponse.orderResponses()) {
-            printlnFormat("%s %d개", orderResponse.menu(), orderResponse.count());
+            printlnFormat(ORDERS_FORMAT, orderResponse.menu(), orderResponse.count());
         }
     }
 
@@ -63,12 +69,12 @@ public class OutputView {
 
     private void printTotalPriceAfterSale(int totalPriceAfterSale) {
         printlnMessage(TOTAL_PRICE_AFTER_SALE);
-        printlnFormat("%,d원", totalPriceAfterSale);
+        printlnFormat(TOTAL_PRICE_AFTER_SALE_FORMAT, totalPriceAfterSale);
     }
 
     private void printTotalBenefitPrice(int totalBenefitPrice) {
         printlnMessage(TOTAL_BENEFIT_PRICE_TAG);
-        printlnFormat("-%,d원", totalBenefitPrice);
+        printlnFormat(TOTAL_BENEFIT_PRICE_FORMAT, totalBenefitPrice);
     }
 
     private void printPresentInfo(Map<Menu, Integer> presentInfo) {
@@ -77,7 +83,7 @@ public class OutputView {
             printlnMessage(NOTHING);
             return;
         }
-        presentInfo.forEach((menu, count) -> printlnFormat("%s %d개", menu.getName(), count));
+        presentInfo.forEach((menu, count) -> printlnFormat(PRESENT_INFO_FORMAT, menu.getName(), count));
     }
 
     private void printBenefitInfo(Map<String, Integer> benefitInfo) {
@@ -86,7 +92,7 @@ public class OutputView {
             printlnMessage(NOTHING);
             return;
         }
-        benefitInfo.forEach((event, benefitPrice) -> printlnFormat("%s : -%,d원", event, benefitPrice
+        benefitInfo.forEach((event, benefitPrice) -> printlnFormat(BENEFIT_INFO_FORMAT, event, benefitPrice
         ));
     }
 
