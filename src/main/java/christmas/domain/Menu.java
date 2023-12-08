@@ -35,5 +35,9 @@ public enum Menu {
                 .findAny()
                 .orElseThrow(ErrorMessage.INVALID_ORDERS::generateException);
     }
+
+    public Category getCategory() {
+        return category;
+    }
 }
 
