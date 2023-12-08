@@ -1,6 +1,9 @@
 package christmas.view;
 
 
+import christmas.dto.response.OrderResponse;
+import christmas.dto.response.OrdersResponse;
+
 public class OutputView {
     private static final OutputView instance = new OutputView();
 
@@ -25,5 +28,12 @@ public class OutputView {
 
     public static void printMessage(String message) {
         System.out.print(message);
+    }
+
+    public void printOrders(OrdersResponse ordersResponse) {
+        printlnMessage("<주문 메뉴>");
+        for (OrderResponse orderResponse : ordersResponse.orderResponses()) {
+            printlnFormat("%s %d개", orderResponse.menu(), orderResponse.count());
+        }
     }
 }
