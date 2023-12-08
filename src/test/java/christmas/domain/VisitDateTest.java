@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,5 +25,29 @@ class VisitDateTest {
     void visitDateSuccessTest(int visitDate) {
         // when & then
         Assertions.assertDoesNotThrow(() -> VisitDate.from(visitDate));
+    }
+
+    @DisplayName("주말(금요일 ~ 토요일) 이면 true를 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    void isWeekendTest(int visitDate) {
+        // when & then
+        assertTrue(() -> VisitDate.from(visitDate).isWeekend());
+    }
+
+    @DisplayName("평일(목요일 ~ 일요일) 이면 true를 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {3, 4, 5, 6, 7})
+    void isWeekdayTest(int visitDate) {
+        // when & then
+        assertTrue(() -> VisitDate.from(visitDate).isWeekday());
+    }
+
+    @DisplayName("stat day(일요일 이거나 크리스마스) 이면 true를 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {3, 10, 17, 24, 25, 31})
+    void isStarDayTest(int visitDate) {
+        // when & then
+        assertTrue(() -> VisitDate.from(visitDate).isStarDay());
     }
 }
