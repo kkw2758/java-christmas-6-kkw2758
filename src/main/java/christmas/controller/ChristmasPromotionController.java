@@ -23,6 +23,7 @@ public class ChristmasPromotionController {
     }
 
     public void run() {
+        outputView.printStartMessage();
         VisitDate visitDate = ExceptionHandler.handle(this::generateVisitDateFromUserInput);
         Orders orders = ExceptionHandler.handle(this::generateOrdersFromUserInput);
         outputView.printOrders(orders.toResponse());
