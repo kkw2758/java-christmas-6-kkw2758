@@ -50,4 +50,12 @@ class VisitDateTest {
         // when & then
         assertTrue(() -> VisitDate.from(visitDate).isStarDay());
     }
+
+    @DisplayName("크리스마스 디데이 이벤트 기간 이면 true를 반환한다.")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 10, 25})
+    void isChristmasEventTargetTest(int visitDate) {
+        // when & then
+        assertTrue(() -> VisitDate.from(visitDate).isChristmasEventTarget());
+    }
 }

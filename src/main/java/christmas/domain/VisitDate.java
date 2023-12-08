@@ -39,6 +39,10 @@ public class VisitDate {
         return value == CHRISTMAS || LocalDate.of(YEAR, MONTH, value).getDayOfWeek().equals(DayOfWeek.SUNDAY);
     }
 
+    public boolean isChristmasEventTarget() {
+        return value <= CHRISTMAS;
+    }
+
     public int getValue() {
         return value;
     }
